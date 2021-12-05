@@ -1,0 +1,98 @@
+﻿@using BTL.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="~/Content/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="News">
+        <header class="header">
+            <div class="header-container">
+                <div>
+                    <a href="/" class="logo">
+                        <img src="~/Content/logo.svg" alt="">
+                        <span>
+                            News<br /><span>Sport is happiness</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="header_align-center">
+                    <form action="#" method="get" id="search-form">
+                        <input type="text" name="search" id="search" placeholder="Nhập nội dung tìm kiếm">
+                        <button type="submit" id="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="header_align-center">
+                    @{
+                        if (Context.Session["USER"] != null)
+                        {
+                            dynamic a = Context.Session["USER"];
+                            if (a is user)
+                            { <span>@(((user)a).name)</span>}
+                            if (a is administrative)
+                            { <span>@(((administrative)a).name)</span>}
+                            if (a is journalist)
+                            { <span>@(((journalist)a).name)</span>}
+                            <a href="/logout">Đăng xuất</a>
+                        }
+                        else
+                        {
+                            <div class="user">
+                                <a class="user-icon" href="/Login"><i class="far fa-user-circle"></i></a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </header>
+        <div class="navbar">
+            <div class="navbar-container">
+                <ul class="navbar-list">
+                    <li><a href="/"><i class="fas fa-home"></i></a></li>
+                    <li><a href="#">MỚI</a></li>
+                    <li><a href="#">VIỆT NAM</a></li>
+                    <li><a href="#">QUỐC TẾ</a></li>
+                    <li><a href="#">BÓNG ĐÁ</a></li>
+                    <li><a href="#">CHUYỂN NHƯỢNG</a></li>
+                    <li><a href="#">BÓNG RỔ</a></li>
+                    <li><a href="#">BÓNG CHUYỀN</a></li>
+                    <li><a href="#">ESPORTS</a></li>
+                    <li><a href="#">KHÁC</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-left">
+                @RenderBody()
+                @{
+                    Html.RenderAction("listNews", "Home");
+                }
+            </div>
+            <div class="content-right">
+                @{
+                    Html.RenderAction("subContent", "Home");
+                }
+            </div>
+        </div>
+        <a href="#up" class="simplescrollup__button simplescrollup__button--hide"><i class="fas fa-chevron-up"></i></a>
+        <footer class="footer">
+            <div>Copyright &copy; 2021 Team 1. All rights reserved</div>
+        </footer>
+    </div>
+
+
+    
+</body>
+
+<script src="~/Content/OwlCarousel2-2.3.4/dist/owl.carousel.js"></script>
+<script src="~/Content/simplescrollup-master/simplescrollup.js"></script>
+<script src="~/Content/Home.js"></script>
+</html>

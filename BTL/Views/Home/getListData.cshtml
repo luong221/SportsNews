@@ -1,0 +1,14 @@
+﻿@model IEnumerable<BTL.Models.article>
+
+
+@foreach (var item in Model)
+{
+    <div class="other-content">
+        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://vcdn1-dulich.vnecdn.net/2021/07/16/1-1626437591.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=BWzFqMmUWVFC1OfpPSUqMA" alt=""></a></div>
+        <div class="other-title">
+            <a href="/detail.html">@item.thumbnail</a>
+            <p>2 giờ</p>
+        </div>
+    </div>
+}
+
