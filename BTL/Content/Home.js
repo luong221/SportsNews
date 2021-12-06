@@ -57,7 +57,6 @@ $(document).ready(function() {
 //        $('.user-modal').addClass("show");
 //    }
 
-})
 
     $('body').click(function (e) {
     if($('.user-modal').hasClass('show')){

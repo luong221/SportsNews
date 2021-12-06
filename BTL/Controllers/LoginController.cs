@@ -11,7 +11,7 @@ namespace BTL.Controllers
 {
     public class LoginController : Controller
     {
-        private Data db = new Data();
+        private NewsData db = new NewsData();
         // GET: Login
         public ActionResult Index()
         {

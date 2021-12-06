@@ -38,6 +38,9 @@ namespace BTL.Models
         [StringLength(200)]
         public string address { get; set; }
 
+        [StringLength(255)]
+        public string img { get; set; }
+
         public virtual role role { get; set; }
     }
 }

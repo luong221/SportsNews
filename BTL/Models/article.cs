@@ -33,7 +33,7 @@ namespace BTL.Models
         public int? totalView { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string thumbnail { get; set; }
 
         [Column(TypeName = "ntext")]

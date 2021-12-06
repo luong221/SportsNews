@@ -46,6 +46,9 @@ namespace BTL.Models
         [StringLength(200)]
         public string address { get; set; }
 
+        [StringLength(255)]
+        public string img { get; set; }
+
         [StringLength(30)]
         public string status { get; set; }
 
