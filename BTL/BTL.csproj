@@ -137,8 +137,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\articlesController.cs" />
+    <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\journalistsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,6 +160,7 @@
   <ItemGroup>
     <Content Include="Content\admin\css\vertical-layout-light\style.css" />
     <Content Include="Content\admin\js\ace.js" />
+    <Content Include="Content\admin\js\admincustom.js" />
     <Content Include="Content\admin\js\alerts.js" />
     <Content Include="Content\admin\js\avgrund.js" />
     <Content Include="Content\admin\js\bootstrap-table.js" />
@@ -3210,6 +3215,26 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\articles\Create.cshtml" />
+    <Content Include="Views\articles\Delete.cshtml" />
+    <Content Include="Views\articles\Details.cshtml" />
+    <Content Include="Views\articles\Edit.cshtml" />
+    <Content Include="Views\articles\Index.cshtml" />
+    <Content Include="Views\categories\Create.cshtml" />
+    <Content Include="Views\categories\Delete.cshtml" />
+    <Content Include="Views\categories\Details.cshtml" />
+    <Content Include="Views\categories\Edit.cshtml" />
+    <Content Include="Views\categories\Index.cshtml" />
+    <Content Include="Views\journalists\Create.cshtml" />
+    <Content Include="Views\journalists\Delete.cshtml" />
+    <Content Include="Views\journalists\Details.cshtml" />
+    <Content Include="Views\journalists\Edit.cshtml" />
+    <Content Include="Views\journalists\Index.cshtml" />
+    <Content Include="Views\users\Create.cshtml" />
+    <Content Include="Views\users\Delete.cshtml" />
+    <Content Include="Views\users\Details.cshtml" />
+    <Content Include="Views\users\Edit.cshtml" />
+    <Content Include="Views\users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

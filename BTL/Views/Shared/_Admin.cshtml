@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/Content/admin/vendors/feather/feather.css">
     <link rel="stylesheet" href="~/Content/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/Content/admin/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/Content/admin/vendors/"
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="~/Content/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -29,10 +30,7 @@
                 <a class="navbar-brand brand-logo mr-5" href="/"><img src="~/Content/logo.svg" class="mr-2" alt="logo" /></a>
                 <a class="navbar-brand brand-logo-mini" href="/"><img src="~/Content/logo.svg" alt="logo" /></a>
             </div>
-            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="icon-menu"></span>
-                </button>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">               
                 <ul class="navbar-nav mr-lg-2">
                     <li class="nav-item nav-search d-none d-lg-block">
                         <div class="input-group">
@@ -66,32 +64,7 @@
                                     </p>
                                 </div>
                             </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-warning">
-                                        <i class="ti-settings mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        Private message
-                                    </p>
-                                </div>
-                            </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-info">
-                                        <i class="ti-user mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        2 days ago
-                                    </p>
-                                </div>
-                            </a>
+                            
                         </div>
                     </li>
                     <li class="nav-item nav-profile dropdown">
@@ -119,67 +92,76 @@
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#article" aria-expanded="false" aria-controls="article">
-                            <i class="far fa-newspaper menu-icon"></i>
-                            <span class="menu-title">Quản Lý Bài Viết</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="article">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Tạo Bài Viết Mới</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Danh Sách Bài Viết</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
-                            <i class="icon-columns menu-icon"></i>
-                            <span class="menu-title">Quản Lý Danh Mục</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="category">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#journalist" aria-expanded="false" aria-controls="journalist">
-                            <i class="fas fa-user-edit menu-icon"></i>
-                            <span class="menu-title">Quản Lý Nhà Báo</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="journalist">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#reader" aria-expanded="false" aria-controls="reader">
-                            <i class="fas fa-book-reader menu-icon"></i>
-                            <span class="menu-title">Quản Lý Bạn Đọc</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="reader">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                            </ul>
-                        </div>
-                    </li>
-
-                </ul>
+            <nav class="sidebar sidebar-offcanvas">
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                    <div class="navbar-toggler custom-toggle" type="button" data-toggle="minimize">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#article" aria-expanded="false" aria-controls="article">
+                                <i class="far fa-newspaper menu-icon"></i>
+                                <span class="menu-title">Quản Lý Bài Viết</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="article">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="/articles/create">Tạo Bài Viết Mới</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="/articles">Danh Sách Bài Viết</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
+                                <i class="icon-columns menu-icon"></i>
+                                <span class="menu-title">Quản Lý Danh Mục</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="category">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="/categories">Danh Sách Danh Mục</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#journalist" aria-expanded="false" aria-controls="journalist">
+                                <i class="fas fa-user-edit menu-icon"></i>
+                                <span class="menu-title">Quản Lý Nhà Báo</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="journalist">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="/journalists">Danh Sách Nhà Báo</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#reader" aria-expanded="false" aria-controls="reader">
+                                <i class="fas fa-book-reader menu-icon"></i>
+                                <span class="menu-title">Quản Lý Bạn Đọc</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="reader">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="/users">Danh Sách Bạn Đọc</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#account">
+                                <i class="fas fa-user-plus menu-icon"></i>
+                                <span class="menu-title">Tạo tài khoản mới</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </nav>
             <!-- partial -->
             <div class="main-panel">
@@ -215,12 +197,11 @@
     <script src="~/Content/admin/js/off-canvas.js"></script>
     <script src="~/Content/admin/js/hoverable-collapse.js"></script>
     <script src="~/Content/admin/js/template.js"></script>
-    <script src="~/Content/admin/js/settings.js"></script>
-    <script src="~/Content/admin/js/todolist.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="~/Content/admin/js/dashboard.js"></script>
     <script src="~/Content/admin/js/Chart.roundedBarCharts.js"></script>
+    <script src="~/Content/admin/js/admincustom.js"></script>
     <!-- End custom js for this page-->
 </body>
 
