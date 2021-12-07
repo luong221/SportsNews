@@ -11,7 +11,7 @@
     <div class="card-body">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.category.name)
+                Thể loại
             </dt>
 
             <dd>
@@ -19,15 +19,15 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.journalist.email)
+                Tên tác giả
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.journalist.email)
+                @Html.DisplayFor(model => model.journalist.name)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.title)
+                Tiêu đề
             </dt>
 
             <dd>
@@ -35,7 +35,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.totalView)
+                Lượt xem
             </dt>
 
             <dd>
@@ -50,13 +50,6 @@
                 <img src="https://@Model.thumbnail" alt="Alternate Text" />
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.description)
-            </dd>
 
             <dt>
                 @Html.DisplayNameFor(model => model.status)
@@ -81,6 +74,16 @@
             <dd>
                 @Html.DisplayFor(model => model.updateAt)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.description)
+            </dd>
+
+
 
         </dl>
     </div>

@@ -30643,5 +30643,18 @@ div.tagsinput span.tag a {
     display: none;
   }
 }
-
+#toolbar-container, .ck-toolbar{
+    border-radius: 7px 7px 0 0;
+}
+#editor {
+    width: 100%;
+    min-height: 300px;
+    background-color: white;
+    border-radius: 0 0 7px 7px;
+    border: solid 1px #CED4DA;
+}
+#preview{
+    display:none;
+    object-fit:contain;
+}
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

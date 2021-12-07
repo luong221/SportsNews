@@ -1,7 +1,8 @@
-namespace BTL.Models
+﻿namespace BTL.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -28,12 +29,14 @@ namespace BTL.Models
 
         [Required]
         [StringLength(100)]
+        [DisplayName("Tiêu đề")]
         public string title { get; set; }
-
+        [DisplayName("Số lượt xem")]
         public int? totalView { get; set; }
 
         [Required]
         [StringLength(255)]
+        [DisplayName("Ảnh")]
         public string thumbnail { get; set; }
 
         [Column(TypeName = "ntext")]
@@ -41,10 +44,11 @@ namespace BTL.Models
         public string description { get; set; }
 
         [StringLength(30)]
+        [DisplayName("Trạng thái")]
         public string status { get; set; }
-
+        [DisplayName("Ngày viết")]
         public DateTime createAt { get; set; }
-
+        [DisplayName("Ngày cập nhật")]
         public DateTime? updateAt { get; set; }
 
         public virtual category category { get; set; }

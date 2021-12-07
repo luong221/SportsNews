@@ -41,7 +41,7 @@ namespace BTL.Controllers
         public ActionResult Create()
         {
             ViewBag.categoryId = new SelectList(db.categories, "id", "name");
-            ViewBag.journalistId = new SelectList(db.journalists, "id", "email");
+            ViewBag.journalistId = new SelectList(db.journalists, "id", "name");
             return View();
         }
 

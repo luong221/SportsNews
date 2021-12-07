@@ -22,19 +22,23 @@ namespace BTL.Controllers
         public async Task<ActionResult> authentication(string username,string password)
         {
             dynamic account = null;
-            account = await db.users.SqlQuery("SELECT * FROM USERS WHERE email = @1 AND password = @2", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
+            account = await db.users.SqlQuery("SELECT * FROM USERS WHERE email = @1 AND password = @2 COLLATE Latin1_General_CS_AS_KS_WS", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
             if (account == null)
             {
-                account = await db.journalists.SqlQuery("SELECT * FROM JOURNALIST WHERE email = @1 AND password = @2", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
+                account = await db.journalists.SqlQuery("SELECT * FROM JOURNALIST WHERE email = @1 AND password = @2 COLLATE Latin1_General_CS_AS_KS_WS", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
                 if (account == null)
                 {
-                    account = await db.administratives.SqlQuery("SELECT * FROM ADMINISTRATIVE WHERE email = @1 AND password = @2", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
+                    account = await db.administratives.SqlQuery("SELECT * FROM ADMINISTRATIVE WHERE email = @1 AND password = @2 COLLATE Latin1_General_CS_AS_KS_WS", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
                 }
             }
             if (account != null)
             {
                 Session["USER"] = account;
-
+                if (account is administrative)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                
                 return RedirectToAction("Index","Home");
             }
             ViewBag.msg = "Tên tài khoản hoặc mật khẩu không chính xác";

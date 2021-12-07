@@ -7,3 +7,22 @@
     }
     
 })
+
+DecoupledEditor
+    .create(document.querySelector('#editor'))
+    .then(editor => {
+        const toolbarContainer = document.querySelector('#toolbar-container');
+
+        toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+$('#img-file').change(function () {
+    const file = $('#img-file')[0].files[0];
+    if (file) {
+        $("#preview").attr("src", URL.createObjectURL(file));
+        $("#preview").css("display", "inline");
+    }
+})
