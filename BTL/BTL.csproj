@@ -156,6 +156,7 @@
     <Compile Include="Models\role.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="security\AdminAuthorize.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin\css\vertical-layout-light\style.css" />
@@ -1241,6 +1242,11 @@
     <Content Include="Content\admin\vendors\x-editable\bootstrap-editable.css" />
     <Content Include="Content\admin\vendors\x-editable\bootstrap-editable.min.js" />
     <Content Include="Content\ckeditor5\ckeditor.js" />
+    <Content Include="Content\ckeditor5\fullscreen\css\style.css" />
+    <Content Include="Content\ckeditor5\fullscreen\FullScreen.js" />
+    <Content Include="Content\ckeditor5\fullscreen\icons\fullscreen-big.svg" />
+    <Content Include="Content\ckeditor5\fullscreen\icons\fullscreen-cancel.svg" />
+    <Content Include="Content\ckeditor5\custom.js" />
     <Content Include="Content\ckeditor5\sample\css\sample.css" />
     <Content Include="Content\ckeditor5\sample\img\bg.png" />
     <Content Include="Content\ckeditor5\sample\img\github.svg" />
@@ -3253,6 +3259,7 @@
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckeditor5\ckeditor.js.map" />
+    <Content Include="Content\ckeditor5\fullscreen\README.md" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

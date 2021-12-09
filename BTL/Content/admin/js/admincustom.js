@@ -12,12 +12,12 @@ DecoupledEditor
     .create(document.querySelector('#editor'))
     .then(editor => {
         const toolbarContainer = document.querySelector('#toolbar-container');
-
         toolbarContainer.appendChild(editor.ui.view.toolbar.element);
     })
     .catch(error => {
         console.error(error);
     });
+
 
 $('#img-file').change(function () {
     const file = $('#img-file')[0].files[0];
@@ -26,3 +26,7 @@ $('#img-file').change(function () {
         $("#preview").css("display", "inline");
     }
 })
+
+$(document).ready(function () {
+    $('select.form-control').select2();
+});

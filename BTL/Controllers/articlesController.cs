@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BTL.Models;
+using BTL.security;
 
 namespace BTL.Controllers
 {
+    [AdminAuthorize]
     public class articlesController : Controller
     {
         private NewsData db = new NewsData();

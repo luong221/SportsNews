@@ -27,7 +27,7 @@
         [StringLength(50)]
         public string categoryId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tiêu đề không được để trống")]
         [StringLength(100)]
         [DisplayName("Tiêu đề")]
         public string title { get; set; }
@@ -40,7 +40,7 @@
         public string thumbnail { get; set; }
 
         [Column(TypeName = "ntext")]
-        [Required]
+        [Required(ErrorMessage = "Nội dung không được để trống")]
         public string description { get; set; }
 
         [StringLength(30)]
