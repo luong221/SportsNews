@@ -7,10 +7,11 @@
     }
     
 })
-
+var editors;
 DecoupledEditor
     .create(document.querySelector('#editor'))
     .then(editor => {
+        editors = editor;
         const toolbarContainer = document.querySelector('#toolbar-container');
         toolbarContainer.appendChild(editor.ui.view.toolbar.element);
     })
@@ -30,3 +31,16 @@ $('#img-file').change(function () {
 $(document).ready(function () {
     $('select.form-control').select2();
 });
+
+$("#submit-article").click(function () {
+    $("#description").val(utf8_to_b64(editors.getData()))
+    $("#form-article").submit()
+})
+
+function utf8_to_b64(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+
+function b64_to_utf8(str) {
+    return decodeURIComponent(escape(window.atob(str)));
+}

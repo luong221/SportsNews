@@ -7,7 +7,7 @@
 
 <h2>Tạo Bài Viết</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" , id = "form-article"})) 
 {
     @Html.AntiForgeryToken()
     
@@ -53,6 +53,7 @@
             <div class="container-content">
                 <div id="toolbar-container"></div>
                 <div id="editor"></div>
+                <input type="hidden" id="description" name="description"  />
             </div>
             @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
         </div>
@@ -60,7 +61,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-danger btn-icon-text">
+            <button type="button" class="btn btn-danger btn-icon-text" id="submit-article">
                 <i class="ti-upload btn-icon-prepend"></i>
                 Upload
             </button>

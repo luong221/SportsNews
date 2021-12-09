@@ -20,15 +20,16 @@ namespace BTL.security
                 }
                 else
                 {
-                    var url = filterContext.RequestContext.HttpContext.Request.RawUrl;
-                    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new { controller = "Home", action = "Index", url = url.ToString() }));
+                    //var url = filterContext.RequestContext.HttpContext.Request.RawUrl;
+                    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                    
                 }
                
             }
             else
             {
-                var url = filterContext.RequestContext.HttpContext.Request.RawUrl;
-                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new {controller = "Login",action="Index",url = url.ToString()}));
+                //var url = filterContext.RequestContext.HttpContext.Request.RawUrl;
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new {controller = "Login",action="Index"}));
             }
         }
     }

@@ -54,16 +54,29 @@ namespace BTL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,journalistId,categoryId,title,totalView,thumbnail,description,status,createAt,updateAt")] article article)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.articles.Add(article);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var __file = Request.Files["img-file"];
+                if (__file != null && __file.ContentLength > 0)
+                {
+                    string __filename = System.IO.Path.GetFileName(__file.FileName);
+                    string __path = Server.MapPath("~/images/") + __filename;
+                    __file.SaveAs(__path);
+                    article.thumbnail = __filename;
+                    db.articles.Add(article);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
+                ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.journalistId);
+                return View(article);
             }
-
-            ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
-            ViewBag.journalistId = new SelectList(db.journalists, "id", "email", article.journalistId);
-            return View(article);
+            catch (Exception e)
+            {
+                ViewBag.message = "File upload failed!!";
+                //Response.StatusCode = 409;
+                return null;
+            }
         }
 
         // GET: articles/Edit/5
@@ -79,7 +92,7 @@ namespace BTL.Controllers
                 return HttpNotFound();
             }
             ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
-            ViewBag.journalistId = new SelectList(db.journalists, "id", "email", article.journalistId);
+            ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.journalistId);
             return View(article);
         }
 
@@ -97,7 +110,7 @@ namespace BTL.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
-            ViewBag.journalistId = new SelectList(db.journalists, "id", "email", article.journalistId);
+            ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.journalistId);
             return View(article);
         }
 
