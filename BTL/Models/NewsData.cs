@@ -19,6 +19,7 @@ namespace BTL.Models
         public virtual DbSet<journalist> journalists { get; set; }
         public virtual DbSet<keyword> keywords { get; set; }
         public virtual DbSet<role> roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -54,6 +55,11 @@ namespace BTL.Models
             modelBuilder.Entity<article>()
                 .Property(e => e.status)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<article>()
+                .HasMany(e => e.keywords)
+                .WithMany(e => e.articles)
+                .Map(m => m.ToTable("keyword_article").MapLeftKey("articleId").MapRightKey("keywordId"));
 
             modelBuilder.Entity<category>()
                 .Property(e => e.id)

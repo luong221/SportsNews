@@ -141,6 +141,7 @@
     <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\journalistsController.cs" />
+    <Compile Include="Controllers\keywordsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -154,6 +155,7 @@
     <Compile Include="Models\keyword.cs" />
     <Compile Include="Models\NewsData.cs" />
     <Compile Include="Models\role.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="security\AdminAuthorize.cs" />
@@ -3312,11 +3314,11 @@
     <Content Include="Views\users\Details.cshtml" />
     <Content Include="Views\users\Edit.cshtml" />
     <Content Include="Views\users\Index.cshtml" />
-    <Content Include="Views\articles1\Create.cshtml" />
-    <Content Include="Views\articles1\Delete.cshtml" />
-    <Content Include="Views\articles1\Details.cshtml" />
-    <Content Include="Views\articles1\Edit.cshtml" />
-    <Content Include="Views\articles1\Index.cshtml" />
+    <Content Include="Views\keywords\Create.cshtml" />
+    <Content Include="Views\keywords\Delete.cshtml" />
+    <Content Include="Views\keywords\Details.cshtml" />
+    <Content Include="Views\keywords\Edit.cshtml" />
+    <Content Include="Views\keywords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

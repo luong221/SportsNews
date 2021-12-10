@@ -35,12 +35,10 @@
                         if (Context.Session["USER"] != null)
                         {
                             dynamic a = Context.Session["USER"];
-                            if (a is user)
-                            { <span>@(((user)a).name)</span>}
-                            if (a is administrative)
-                            { <span>@(((administrative)a).name)</span>}
-                            if (a is journalist)
-                            { <span>@(((journalist)a).name)</span>}
+                            <span>@a.name</span>
+                            if(a.roleId == 1) {
+                                <a href="/admin"><span>Admin</span></a>
+                            }
                             <a href="/logout">Đăng xuất</a>
                         }
                         else

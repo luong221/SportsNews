@@ -1,5 +1,6 @@
 ﻿@model BTL.Models.article
-
+@using BTL.Models
+@using System.Linq
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -37,11 +38,25 @@
             @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
         </div>
     </div>
-
+    <div class="form-group">
+        <label for="keyword">KeyWord</label>
+        <div class="col-md-10">
+            <select class="form-control">
+                @using (NewsData db = new NewsData())
+                {
+                    var keywords = (from keyword in db.keywords select keyword).ToList();
+                    foreach (keyword key in keywords)
+                    {
+                        <option value="@key.id">@key.name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <label class="btn btn-primary" for="img-file" style="cursor:pointer">Chọn file ảnh</label>
+            <label class="file-upload-browse btn btn-primary" for="img-file" style="cursor:pointer">Chọn file ảnh</label>
             <input type="file" name="img-file" id="img-file" style="display:none !important;" accept="image/*" />
             <img id="preview" src="#" width="200" height="100" />
         </div>
@@ -53,7 +68,7 @@
             <div class="container-content">
                 <div id="toolbar-container"></div>
                 <div id="editor"></div>
-                <input type="hidden" id="description" name="description"  />
+                <input type="hidden" id="description" name="description" />
             </div>
             @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
         </div>

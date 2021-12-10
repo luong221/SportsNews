@@ -9,14 +9,19 @@ namespace BTL.Models
     [Table("keyword")]
     public partial class keyword
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public keyword()
+        {
+            articles = new HashSet<article>();
+        }
+
         public long id { get; set; }
 
         [Required]
         [StringLength(100)]
         public string name { get; set; }
 
-        public long articleId { get; set; }
-
-        public virtual article article { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<article> articles { get; set; }
     }
 }

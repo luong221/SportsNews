@@ -61,10 +61,11 @@ namespace BTL.Controllers
                 {
                     string __filename = System.IO.Path.GetFileName(__file.FileName);
                     string __path = Server.MapPath("~/images/") + __filename;
-                    __file.SaveAs(__path);
                     article.thumbnail = __filename;
+                    article.createAt = DateTime.Now;
                     db.articles.Add(article);
                     db.SaveChanges();
+                    __file.SaveAs(__path);
                     return RedirectToAction("Index");
                 }
                 ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
@@ -74,8 +75,8 @@ namespace BTL.Controllers
             catch (Exception e)
             {
                 ViewBag.message = "File upload failed!!";
-                //Response.StatusCode = 409;
-                return null;
+                ViewBag.exception = e.Message;
+                return View();
             }
         }
 

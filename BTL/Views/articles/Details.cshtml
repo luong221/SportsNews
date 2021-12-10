@@ -5,83 +5,73 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết bài viết</h2>
 
 <div class="card">
     <div class="card-body">
         <dl class="dl-horizontal">
+            <div class="row">
+                <dd class="col">
+                    Thể loại:
+                    @Html.DisplayFor(model => model.category.name)
+                </dd>
+
+                <dd class="col">
+                    Tên tác giả:
+                    @Html.DisplayFor(model => model.journalist.name)
+                </dd>
+
+                <dd class="col">
+                    Lượt xem:
+                    @Html.DisplayFor(model => model.totalView)
+                </dd>
+
+                <dd class="col">
+                    Trạng thái:
+                    @Html.DisplayFor(model => model.status)
+                </dd>
+                
+            </div>
+            <div class="row">
+                <dd class="col">
+                    Ngày tạo:
+                    @Html.DisplayFor(model => model.createAt)
+                </dd>
+
+                <dd class="col">
+                    Ngày cập nhật:
+                    @Html.DisplayFor(model => model.updateAt)
+                </dd>
+            </div>
+
+            <div class="row">
+                <dd class="col">
+                    Tiêu đề:
+                    @Html.DisplayFor(model => model.title)
+                </dd>
+            </div>
+
             <dt>
-                Thể loại
+                Thumbnail:
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.category.name)
-            </dd>
-
-            <dt>
-                Tên tác giả
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.journalist.name)
-            </dd>
-
-            <dt>
-                Tiêu đề
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.title)
-            </dd>
-
-            <dt>
-                Lượt xem
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.totalView)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.thumbnail)
-            </dt>
-
-            <dd>
-                <img src="https://@Model.thumbnail" alt="Alternate Text" />
+                <img src="~/images/@Model.thumbnail" alt="Alternate Text" />
             </dd>
 
 
-            <dt>
-                @Html.DisplayNameFor(model => model.status)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.status)
+            <dd class="detail">
+                <div id="toolbar-container"></div>
+                <div id="editor"></div>
+                <script>
+                    $(document).ready(function () {
+                        editors.isReadOnly = true;
+                        var content = b64_to_utf8("@(Model.description)");
+                        editors.setData(content);
+                    })
+                </script>
             </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.createAt)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.createAt)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.updateAt)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.updateAt)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.description)
-            </dd>
+            <a class="func-link edit-link btn btn-dark btn-icon-text" href="/articles/edit/@Model.id">Sửa bài viết</a>
 
 
 
