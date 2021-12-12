@@ -8,7 +8,7 @@ namespace BTL.Models
     public partial class NewsData : DbContext
     {
         public NewsData()
-            : base("name=NewsData")
+            : base("name=NewsData1")
         {
         }
 
@@ -19,7 +19,6 @@ namespace BTL.Models
         public virtual DbSet<journalist> journalists { get; set; }
         public virtual DbSet<keyword> keywords { get; set; }
         public virtual DbSet<role> roles { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
