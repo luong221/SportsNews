@@ -5,102 +5,106 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Nhà Báo</h2>
+<div class="card">
+    <div class="card-body">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.role.rolename)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.workExperience)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.birthday)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.salary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.createAt)
-        </th>
-        <th></th>
-    </tr>
+        <table class="table table-hover">
+            <thead>
+            <th>
+                Vai trò
+            </th>
+            <th>
+                Số năm kinh nghiệm
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Họ đệm
+            </th>
+            <th>
+                Giới tính
+            </th>
+            <th>
+                Ngày sinh
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Lương (USD)
+            </th>
+            <th>
+                Ngày tạo
+            </th>
+            <th></th>
+            </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.role.rolename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.workExperience)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.createAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.role.rolename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.workExperience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @item.birthday.Date.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.img)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createAt)
+            </td>
+            <td>
+                <a class="func-link edit-link" href="/articles/edit/@item.id"><i class="fas fa-edit func-icon"></i></a>
+                <a class="func-link details-link" href="/articles/details/@item.id"><i class="fas fa-ellipsis-v func-icon"></i></a>
+                <a class="func-link delete-link" href="/articles/delete/@item.id"><i class="fas fa-trash-alt func-icon"></i></a>
+            </td>
+        </tr>
+            }
 
-</table>
+        </table>
+
+    </div>
+</div>
+
