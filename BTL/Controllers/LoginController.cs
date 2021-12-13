@@ -21,31 +21,42 @@ namespace BTL.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> authentication(string username,string password)
+        public ActionResult authentication(string username,string password)
         {
-
-            dynamic account = null;            
-            account = await db.users.SqlQuery("SELECT * FROM USERS WHERE email = @1 AND password = @2 COLLATE Latin1_General_CS_AS_KS_WS", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
+            dynamic account = db.users.AsQueryable().Where(t => t.email == username && t.password == password && t.status == "ACTIVE").FirstOrDefault();
             if (account == null)
             {
-                account = await db.journalists.SqlQuery("SELECT * FROM JOURNALIST WHERE email = @1 AND password = @2 COLLATE Latin1_General_CS_AS_KS_WS", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
+                account = db.journalists.AsQueryable().Where(t => t.email == username && t.password == password && t.status == "WORKED").FirstOrDefault();
                 if (account == null)
                 {
-                    account = await db.administratives.SqlQuery("SELECT * FROM ADMINISTRATIVE WHERE email = @1 AND password = @2 COLLATE Latin1_General_CS_AS_KS_WS", new SqlParameter("@1", username), new SqlParameter("@2", password)).FirstOrDefaultAsync();
+                    account = db.administratives.AsQueryable().Where(t => t.email == username && t.password == password).FirstOrDefault();
                 }
             }
-            if (account != null)
+            
+            if(account != null)
             {
-                Session["USER"] = account;
-                if (account is administrative)
+                if (account.roleId == 1)
                 {
+                    if (Session["USER"] == null)
+                    {
+                        Session["USER"] = account;
+                    }
                     return RedirectToAction("Index", "Admin");
                 }
-                
-                return RedirectToAction("Index","Home");
+                else
+                {
+                    if(account.roleId == 2)
+                    {
+                        return RedirectToAction("Index", "Journalist");                        
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            ViewBag.msg = "Tên tài khoản hoặc mật khẩu không chính xác";
-            return View("Index");
+            else
+            {
+                ViewBag.msg = "Tên tài khoản hoặc mật khẩu không chính xác";
+                return View("Index");
+            }      
         }
 
         [HttpGet]

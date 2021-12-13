@@ -1,7 +1,12 @@
 ﻿@using BTL.Models
 <!DOCTYPE html>
 <html lang="en">
-
+@{ 
+    string img = "#";
+    if (Session["USER"] != null) {
+        img = ((dynamic)Session["USER"]).img;
+    }
+}
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -20,6 +25,8 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="~/Content/admin/css/vertical-layout-light/style.css">
+    <link rel="stylesheet" href="~/Content/admin/css/admin.css">
+
     <!-- plugins:js -->
     <script src="~/Content/admin/vendors/js/vendor.bundle.base.js"></script>
     <script src="~/Content/ckeditor5/ckeditor.js"></script>
@@ -75,7 +82,7 @@
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="@(((administrative)Session["USER"]).img)" alt="profile" />
+                            <img src="@img" alt="" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item">
@@ -162,7 +169,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#account">
                                 <i class="fas fa-user-plus menu-icon"></i>
-                                <span class="menu-title">Tạo tài khoản mới</span>
+                                <span class="menu-title"></span>
                                 <i class="menu-arrow"></i>
                             </a>
                         </li>
@@ -172,6 +179,9 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
+                    <div class="alert" id="alert-msg">
+                        
+                    </div>
                     @RenderBody()
                 </div>
                 <!-- content-wrapper ends -->

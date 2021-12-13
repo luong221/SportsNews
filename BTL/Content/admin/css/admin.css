@@ -1,0 +1,41 @@
+﻿.select2-container{
+    z-index:1;
+}
+.addKeyword {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    border: #ced4da solid 1px;
+    position: relative;
+}
+.addKeyword > input {
+    width: 95%;
+    border: none;
+    
+}
+.addKeyword > input:focus {
+    outline: none;
+}
+.addKeyword > i{
+    color: #eea29a;
+    font-weight:600;
+    cursor:pointer;
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform: translateY(-50%);
+}
+.addKeyword > i:hover{
+    color: #c94c4c;
+}
+#alert-msg{
+    display:none;
+    position:fixed;
+    top:75px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+}
+.main-panel > div.content-wrapper{
+    position:relative;
+}

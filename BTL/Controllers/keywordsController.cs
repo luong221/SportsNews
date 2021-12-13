@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Data.Linq.SqlClient;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BTL.Models;
+using BTL.security;
+using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace BTL.Controllers
 {
+    [Admin_JournalistAuthorize]
     public class keywordsController : Controller
     {
         private NewsData db = new NewsData();
 
         // GET: keywords
-        public ActionResult Index()
+        public ActionResult Index(string term)
         {
-            return View(db.keywords.ToList());
+            var list = db.keywords.Where(t => t.name.Contains(term)).OrderBy(t=>t.id).Take(10).Select(t=> new {t.id,t.name }).ToArray();          
+            return Json(new { results = list }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: keywords/Details/5
@@ -44,20 +50,38 @@ namespace BTL.Controllers
         // POST: keywords/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "id,name")] keyword keyword)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.keywords.Add(keyword);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(keyword);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name")] keyword keyword)
+        public ActionResult Create(string name)
         {
-            if (ModelState.IsValid)
+            int status = 500;
+            string msg = "Thêm keyword "+ name +" thất bại!";
+            keyword key = new keyword();
+            if (db.keywords.Count(t => t.name == name) == 0)
             {
-                db.keywords.Add(keyword);
+                key.name = name;
+                db.keywords.Add(key);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                status = 200;
+                msg = "Thêm keyword " + name + " thành công!";
             }
-
-            return View(keyword);
+            var resp = new {msg = msg};
+            Response.StatusCode = status;
+            return Json(resp,JsonRequestBehavior.AllowGet);
         }
-
         // GET: keywords/Edit/5
         public ActionResult Edit(long? id)
         {

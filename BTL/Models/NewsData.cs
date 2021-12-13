@@ -118,5 +118,6 @@ namespace BTL.Models
                 .WithRequired(e => e.user)
                 .WillCascadeOnDelete(false);
         }
+
     }
 }

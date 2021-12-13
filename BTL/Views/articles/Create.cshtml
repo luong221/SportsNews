@@ -1,6 +1,5 @@
 ﻿@model BTL.Models.article
 @using BTL.Models
-@using System.Linq
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -14,15 +13,7 @@
     
 <div class="form-horizontal">
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.journalistId, "Tác giả", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("journalistId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.journalistId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
+    
     <div class="form-group">
         @Html.LabelFor(model => model.categoryId, "Thể loại", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -39,18 +30,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="keyword">KeyWord</label>
+        <label class="control-label col-md-2" for="keyword">KeyWord</label>
         <div class="col-md-10">
-            <select class="form-control">
-                @using (NewsData db = new NewsData())
-                {
-                    var keywords = (from keyword in db.keywords select keyword).ToList();
-                    foreach (keyword key in keywords)
-                    {
-                        <option value="@key.id">@key.name</option>
-                    }
-                }
+            <select class="form-control select-keyword" name="keyword" id="keyword" multiple="multiple">
             </select>
+            <input type="hidden" name="keywordSubmit" id="keywordSubmit"  />
         </div>
     </div>
     <div class="form-group">

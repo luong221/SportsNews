@@ -62,7 +62,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -71,6 +75,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -140,6 +147,7 @@
     <Compile Include="Controllers\articlesController.cs" />
     <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JournalistController.cs" />
     <Compile Include="Controllers\journalistsController.cs" />
     <Compile Include="Controllers\keywordsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -159,8 +167,10 @@
     <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="security\AdminAuthorize.cs" />
+    <Compile Include="security\Admin_JournalistAuthorize.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin\css\admin.css" />
     <Content Include="Content\admin\css\vertical-layout-light\style.css" />
     <Content Include="Content\admin\js\ace.js" />
     <Content Include="Content\admin\js\admincustom.js" />
@@ -3262,6 +3272,86 @@
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckeditor5\ckeditor.js.map" />
     <Content Include="Content\ckeditor5\fullscreen\README.md" />
+    <Content Include="Content\fonts\Manrope\Manrope-Bold.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-Bold.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-Bold.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-Bold.woff2" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraBold.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraBold.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraBold.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraBold.woff2" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraLight.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraLight.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraLight.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-ExtraLight.woff2" />
+    <Content Include="Content\fonts\Manrope\Manrope-Light.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-Light.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-Light.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-Light.woff2" />
+    <Content Include="Content\fonts\Manrope\Manrope-Medium.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-Medium.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-Medium.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-Medium.woff2" />
+    <Content Include="Content\fonts\Manrope\Manrope-Regular.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-Regular.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-Regular.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-Regular.woff2" />
+    <Content Include="Content\fonts\Manrope\Manrope-SemiBold.eot" />
+    <Content Include="Content\fonts\Manrope\Manrope-SemiBold.ttf" />
+    <Content Include="Content\fonts\Manrope\Manrope-SemiBold.woff" />
+    <Content Include="Content\fonts\Manrope\Manrope-SemiBold.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-Black.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-Black.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-Black.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-Black.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-Bold.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-Bold.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-Bold.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-Bold.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraBold.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraBold.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraBold.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraBold.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraLight.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraLight.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraLight.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-ExtraLight.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-Italic.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-Italic.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-Italic.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-Italic.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-Light.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-Light.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-Light.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-Light.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-Regular.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-Regular.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-Regular.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-Regular.woff2" />
+    <Content Include="Content\fonts\Nunito\Nunito-SemiBold.eot" />
+    <Content Include="Content\fonts\Nunito\Nunito-SemiBold.ttf" />
+    <Content Include="Content\fonts\Nunito\Nunito-SemiBold.woff" />
+    <Content Include="Content\fonts\Nunito\Nunito-SemiBold.woff2" />
+    <Content Include="Content\fonts\Roboto\Roboto-Black.eot" />
+    <Content Include="Content\fonts\Roboto\Roboto-Black.ttf" />
+    <Content Include="Content\fonts\Roboto\Roboto-Black.woff" />
+    <Content Include="Content\fonts\Roboto\Roboto-Black.woff2" />
+    <Content Include="Content\fonts\Roboto\Roboto-Bold.eot" />
+    <Content Include="Content\fonts\Roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\fonts\Roboto\Roboto-Bold.woff" />
+    <Content Include="Content\fonts\Roboto\Roboto-Bold.woff2" />
+    <Content Include="Content\fonts\Roboto\Roboto-Light.eot" />
+    <Content Include="Content\fonts\Roboto\Roboto-Light.ttf" />
+    <Content Include="Content\fonts\Roboto\Roboto-Light.woff" />
+    <Content Include="Content\fonts\Roboto\Roboto-Light.woff2" />
+    <Content Include="Content\fonts\Roboto\Roboto-Medium.eot" />
+    <Content Include="Content\fonts\Roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\fonts\Roboto\Roboto-Medium.woff" />
+    <Content Include="Content\fonts\Roboto\Roboto-Medium.woff2" />
+    <Content Include="Content\fonts\Roboto\Roboto-Regular.eot" />
+    <Content Include="Content\fonts\Roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\fonts\Roboto\Roboto-Regular.woff" />
+    <Content Include="Content\fonts\Roboto\Roboto-Regular.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3319,6 +3409,8 @@
     <Content Include="Views\keywords\Details.cshtml" />
     <Content Include="Views\keywords\Edit.cshtml" />
     <Content Include="Views\keywords\Index.cshtml" />
+    <Content Include="Views\Shared\_JournalistLayout.cshtml" />
+    <Content Include="Views\journalist\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

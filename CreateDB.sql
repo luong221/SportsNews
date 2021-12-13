@@ -11,11 +11,10 @@ create table role
 	rolename varchar(20) not null,
 	description nvarchar(100)
 )
-
 go
-CREATE TABLE users
+create table infor
 (
-	id varchar(50) PRIMARY KEY NOT NULL,
+	id bigint primary key not null identity(1,1),
 	roleId bigint not null,
 	email VARCHAR(100) NOT NULL,
 	password VARCHAR(100) NOT NULL,
@@ -25,43 +24,29 @@ CREATE TABLE users
 	birthday datetime not null,
 	address nvarchar(200) not null,
 	img varchar(255),
-	status varchar(30) check (status in ('ACTIVE','DEACTIVE')) default 'ACTIVE',
-	createAt datetime
+	createAt datetime not null,
 	foreign key(roleId) references role(id) on delete cascade on update cascade
+)
+go
+CREATE TABLE users
+(
+	id varchar(50) PRIMARY KEY NOT NULL,	
+	status varchar(30) check (status in ('ACTIVE','DEACTIVE')) default 'ACTIVE',
+
 )
 go
 create table journalist
 (
 	id varchar(50) PRIMARY KEY NOT NULL,
 	workExperience int not null,
-	roleId bigint not null,
-	email VARCHAR(100) NOT NULL,
-	password VARCHAR(100) NOT NULL,
-	name NVARCHAR(128) NOT NULL,
-	lastname NVARCHAR(128) NOT NULL,
-	gender bit not null,
-	birthday datetime not null,
-	address nvarchar(200) not null,
-	img varchar(255),
 	status varchar(30) check (status in ('WORKED','RETIRED')) default 'WORKED',
 	salary bigint not null,
-	createAt datetime,
-	foreign key(roleId) references role(id) on delete cascade on update cascade
 )
 GO
 create table administrative
 (
 	id varchar(50) PRIMARY KEY NOT NULL,
-	roleId bigint not null,
-	email VARCHAR(100) NOT NULL,
-	password VARCHAR(100) NOT NULL,
-	name NVARCHAR(128) NOT NULL,
-	lastname NVARCHAR(128) NOT NULL,
-	gender bit not null,
-	birthday datetime not null,
-	address nvarchar(200) not null,
-	img varchar(255),
-	foreign key(roleId) references role(id) on delete cascade on update cascade
+	
 )
 go
 create table category
