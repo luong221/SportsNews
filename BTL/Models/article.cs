@@ -14,8 +14,8 @@ namespace BTL.Models
         {
             comments = new HashSet<comment>();
             keywords = new HashSet<keyword>();
-            status = "INITIAL";
             totalView = 0;
+            status = "INITIAL";
         }
 
         public long id { get; set; }

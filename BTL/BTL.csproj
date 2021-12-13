@@ -163,7 +163,6 @@
     <Compile Include="Models\keyword.cs" />
     <Compile Include="Models\NewsData.cs" />
     <Compile Include="Models\role.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="security\AdminAuthorize.cs" />
