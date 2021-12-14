@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using BTL.Models;
@@ -150,52 +152,60 @@ namespace BTL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,journalistId,categoryId,title,totalView,thumbnail,description,status,createAt,updateAt")] article article,FormCollection f)
         {
-                      
-            try
-            {
-                article currArticle = db.articles.AsNoTracking().Where(t => t.id == article.id).First();
-                article.keywords = currArticle.keywords;
-                var __file = Request.Files["img-file"];
-                if (__file != null && __file.ContentLength > 0)
+                try
                 {
-                    ModelState["thumbnail"].Errors.Clear();
-                    string __filename = System.IO.Path.GetFileName(__file.FileName);
-                    string __path = Server.MapPath("~/images/") + __filename;
-                    currArticle.thumbnail = __filename;
-                    __file.SaveAs(__path);
-                }
-
-                var keys = f["keywords"].Split(',').Select(t => long.Parse(t)).ToList();
-                if (keys.Count!=0)
-                {
-
-                    currArticle.keywords.Clear();
-                    foreach (var i in keys)
+                    article currArticle = db.articles.AsNoTracking().Where(t => t.id == article.id).First();
+                    article.keywords = currArticle.keywords;
+                    var __file = Request.Files["img-file"];
+                    if (__file != null && __file.ContentLength > 0)
                     {
-                        currArticle.keywords.Add(db.keywords.Find(i));
+                        ModelState["thumbnail"].Errors.Clear();
+                        string __filename = System.IO.Path.GetFileName(__file.FileName);
+                        string __path = Server.MapPath("~/images/") + __filename;
+                        currArticle.thumbnail = __filename;
+                        __file.SaveAs(__path);
                     }
 
-                }
-                currArticle.updateAt = DateTime.Now;
-                currArticle.categoryId = article.categoryId;
-                currArticle.journalistId = article.journalistId;
-                currArticle.title = article.title;
-                currArticle.description = article.description;
-                foreach (var modelValue in ModelState.Values)
-                {
-                    modelValue.Errors.Clear();
-                }
-                db.Entry(currArticle).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    var keys = f["keywords"].Split(',').Select(t => long.Parse(t)).ToList();
+                    if (keys.Count != 0)
+                    {
+                        var n = currArticle.keywords.ToList();
+                        string delete = "delete keyword_article where articleId = '" + currArticle.id + "'";
+                        StringBuilder insert = new StringBuilder("Insert into keyword_article values ");
+                        SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+                        conn.Open();
+                        SqlCommand qdelete = new SqlCommand(delete, conn);                       
+                        qdelete.ExecuteNonQuery();                        
+                        foreach (var i in keys)
+                        {
+                            insert.Append("(" + currArticle.id + "," + db.keywords.Find(i).id + "),");
+                        }
+                        insert.Remove(insert.Length-1, 1);
+                        SqlCommand qinsert = new SqlCommand(insert.ToString(), conn);
+                        qinsert.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                    currArticle.updateAt = DateTime.Now;
+                    currArticle.categoryId = article.categoryId;
+                    currArticle.journalistId = article.journalistId;
+                    currArticle.title = article.title;
+                    currArticle.description = article.description;
+                    foreach (var modelValue in ModelState.Values)
+                    {
+                        modelValue.Errors.Clear();
+                    }
+                    db.Entry(currArticle).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
 
-            }
-            catch (Exception e)
-            {
-                ViewBag.message = "File upload failed!!";
-                ViewBag.exception = e.Message;
-                return RedirectToAction("edit", "articles");
-            }
+                }
+                catch (Exception e)
+                {
+                    ViewBag.message = "File upload failed!!";
+                    ViewBag.exception = e.Message;
+                    return RedirectToAction("edit", "articles");
+                }
+            
             
         }
 

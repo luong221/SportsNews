@@ -18,6 +18,9 @@
         </a>
     </div>
 </div>
+@{
+    Html.RenderAction("listNews", "Home");
+}
 <script>
     $(document).ready(function () {
         function b64_to_utf8(str) {

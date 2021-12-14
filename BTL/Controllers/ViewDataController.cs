@@ -15,8 +15,29 @@ namespace BTL.Controllers
         [HttpGet]
         public PartialViewResult detail(long id)
         {
+            article article = db.articles.Find(id);
+            article.totalView += 1; 
+            db.Entry(article).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
             article a = db.articles.Find(id);
             return PartialView(a);
+        }
+        [Route("View/{name}")]
+        [HttpGet]
+        public PartialViewResult viewByCategory(string name)
+        {
+            var articles = db.articles.Where(t => t.categoryId.Equals(name)).ToList();
+            bool isEmpty = !articles.Any();
+            if (isEmpty)
+            {
+                ViewBag.title = "Không có bài viết.";
+                
+            }
+            else
+            {
+                ViewBag.title = articles.First().category.name;
+            }
+            return PartialView(articles);
         }
     }
 }

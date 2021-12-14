@@ -1,0 +1,21 @@
+﻿@model IEnumerable<BTL.Models.article>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.title</h2>
+
+
+<div class="other">
+    @foreach (var i in Model)
+    {
+        <div class="other-content">
+            <div class="other-img-container rounded"><a href="/detail/@i.id"> <img class="other-content-img rounded" src="~/images/@i.thumbnail" /></a></div>
+            <div class="other-title">
+                <a href="/detail/@i.id">@i.title</a>
+                <p>@((int)(DateTime.Now - i.createAt).TotalHours) giờ</p>
+            </div>
+        </div>
+    }
+
+</div>

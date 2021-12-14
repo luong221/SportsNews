@@ -3429,6 +3429,7 @@
     <Content Include="Views\Shared\_JournalistLayout.cshtml" />
     <Content Include="Views\articles\listNotCensor.cshtml" />
     <Content Include="Views\ViewData\detail.cshtml" />
+    <Content Include="Views\ViewData\viewByCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
