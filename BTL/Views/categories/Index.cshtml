@@ -21,9 +21,6 @@
             <th>
                 Ngày tạo
             </th>
-            <th>
-                Ngày sửa
-            </th>
             <th></th>
             </thead>
 
@@ -40,7 +37,7 @@
                         @item.createAt.Date.ToString("dd/MM/yyyy")
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.updateAt)
+                        @Html.DisplayFor(modelItem => item.createAt)
                     </td>
                     <td>
                         <a class="func-link edit-link" href="/articles/edit/@item.id"><i class="fas fa-edit func-icon"></i></a>

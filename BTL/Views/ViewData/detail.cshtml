@@ -1,0 +1,29 @@
+﻿@model BTL.Models.article
+@{
+    ViewBag.Title = "detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-content">
+    <h2>@Model.title</h2>
+    <div id="createAt">@Model.createAt.ToString("dd/MM/yyyy HH:mm UTC z")</div>
+    <div id="description"></div>
+    <div id="author"><i class="fas fa-user-edit"></i> @Model.journalist.name</div>
+</div>
+
+<div class="caption-more-detail">
+    <div class="caption">
+        <a class="title" href="#" title="Có thể bạn quan tâm" onclick="return false;">
+            <span>Có thể bạn quan tâm</span>
+        </a>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
+        var content = b64_to_utf8('@Model.description');
+        $("#description").html(content);
+    })
+</script>

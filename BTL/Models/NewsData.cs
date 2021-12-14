@@ -8,7 +8,7 @@ namespace BTL.Models
     public partial class NewsData : DbContext
     {
         public NewsData()
-            : base("name=NewsData1")
+            : base("name=NewsData")
         {
         }
 

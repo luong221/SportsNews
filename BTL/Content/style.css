@@ -14,6 +14,7 @@ a{
 }
 a:hover{
     color:var(--color);
+    text-decoration:none;
 }
 ul{
     list-style: none;
@@ -26,7 +27,9 @@ img{
 /* 
    header
 */
-
+html {
+    font-size: 14px;
+}
 .header{
     width: 100%;
     height: 70px;
@@ -124,7 +127,7 @@ img{
     z-index: 100;
     width: 100%;
 }
-.navbar{
+.navbars{
     background-color: var(--color);
     height: 40px;
 }
@@ -466,4 +469,60 @@ img:hover{
 }
 .content-detail > article img:hover{
     transform: scale(1);
+}
+
+#description > p > img:hover{
+    transform: scale(1);
+}
+#description  p {
+    font-size:1.2rem;
+}
+.container-content {
+    background-color: #f2f2f2;
+    border-radius:7px;
+    padding:15px;
+    margin-bottom:30px;
+}
+.container-content > h2 {
+   color: #319bbd;
+   font-weight:700;
+}
+#createAt {
+    margin: 15px 0;
+    border-top: solid 1px #d7d7d7;
+    border-bottom: solid 1px #d7d7d7;
+}
+
+#author{
+    text-align:right;
+}
+.caption-more-detail .caption {
+    border-bottom: 1px solid #254892;
+    height: 22px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.caption-more-detail .caption .title {
+    padding: 0 10px 0 10px;
+    display: inline-block;
+    width:210px;
+    background: url(/Content/Subtract.svg) -45px  no-repeat;
+    position: relative;
+}
+
+.caption-more-detail .caption .title span {
+    z-index: 1;
+    position: relative;
+    font-size: 15px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
 }

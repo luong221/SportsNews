@@ -15,15 +15,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
-
         <div class="form-group">
             <div class="col-md-10">
-                <input type="hidden" name="journalistId" id="journalistId" value="@Model.journalistId" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="hidden" name="createAt" id="createAt" value="@Model.createAt" />
+                <input type="hidden" name="journalistId" id="journalistId" value="@Model.id" />
             </div>
         </div>
         <div class="form-group">
@@ -46,10 +40,10 @@
             <label class="control-label col-md-2" for="keyword">KeyWord</label>
             <div class="col-md-10">
                 <select class="form-control select-keyword" name="keywords" id="keyword-edit" multiple="multiple">
-                    @foreach (var i in Model.keywords)
+                    @*@foreach (var i in Model.keywords)
                     {
                         <option value="@i.id">@i.name</option>
-                    }
+                    }*@
                 </select>
                 <input type="hidden" name="keyword" id="keywordSubmit" />
             </div>
@@ -70,19 +64,18 @@
             <div id="editor"></div>
             <input type="hidden" name="description" id="description" />
             <script>
-            $(document).ready(function () {
-            var content = b64_to_utf8("@(Model.description)");
-            editors.setData(content);
-            @foreach(var i in Model.keywords)
-                {
-                    <text>
-                        var $newOption = $("<option selected='selected'></option>").val("@i.id").text("@i.name")
+                $(document).ready(function () {
+                    var content = b64_to_utf8("@(Model.description)");
+                    editors.setData(content);
+                    @foreach(var i in Model.keywords)
+                    {
+                        <text>
+                            var $newOption = $("<option selected='selected'></option>").val("@i.id").text('@Html.Raw(@i.name)')
 
-                        $("#keyword-edit").append($newOption).trigger('change');
-                    </text>
-                }
-            })
-
+                            $("#keyword-edit").append($newOption);
+                        </text>
+                    }
+                })
             </script>
         </dd>
 

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/admin/vendors/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -36,11 +37,22 @@
                         {
                             dynamic a = Context.Session["USER"];
                             <span>@a.name</span>
-                            if(a.roleId == 1) {
-                                <a href="/admin"><span>Admin</span></a>
-                            }
-                            <a href="/logout">Đăng xuất</a>
-                        }
+                            <div class="nav-item nav-profile dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                                    <img src="" alt="" />
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                    <a class="dropdown-item">
+                                        <i class="ti-settings text-primary"></i>
+                                        Settings
+                                    </a>
+                                    <a class="dropdown-item" href="/logout">
+                                        <i class="ti-power-off text-primary"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                        }    
                         else
                         {
                             <div class="user">
@@ -51,7 +63,7 @@
                 </div>
             </div>
         </header>
-        <div class="navbar">
+        <div class="navbars">
             <div class="navbar-container">
                 <ul class="navbar-list">
                     <li><a href="/"><i class="fas fa-home"></i></a></li>

@@ -12,16 +12,10 @@
         <table class="table table-hover">
             <thead>
             <th>
-                Vai trò
-            </th>
-            <th>
-                Số năm kinh nghiệm
+                kinh nghiệm
             </th>
             <th>
                 Email
-            </th>
-            <th>
-                Password
             </th>
             <th>
                 Tên
@@ -42,13 +36,7 @@
                 Ảnh
             </th>
             <th>
-                Trạng thái
-            </th>
-            <th>
                 Lương (USD)
-            </th>
-            <th>
-                Ngày tạo
             </th>
             <th></th>
             </thead>
@@ -57,16 +45,10 @@
             {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.role.rolename)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.workExperience)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.password)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.name)
@@ -75,7 +57,14 @@
                 @Html.DisplayFor(modelItem => item.lastname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.gender)
+                @if (item.gender == true)
+                {
+                    <text>Nam</text>
+                }
+                else
+                {
+                    <text>Nữ</text>
+                }
             </td>
             <td>
                 @item.birthday.Date.ToString("dd/MM/yyyy")
@@ -87,13 +76,7 @@
                 @Html.DisplayFor(modelItem => item.img)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.salary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.createAt)
             </td>
             <td>
                 <a class="func-link edit-link" href="/articles/edit/@item.id"><i class="fas fa-edit func-icon"></i></a>

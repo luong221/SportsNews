@@ -1,30 +1,29 @@
-﻿<div class="main-content">
-    <div class="main-img-container"><a href="/detail.html"><img class="main-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/13/ro-si-jpeg-1639394925-1930-1639395211.jpg?w=680&h=408&q=100&dpr=1&fit=crop&s=Sz402J3fy2malLxpk6r4Yw" alt=""></a></div>
-    <div class="main-content-title">
-        <a href="/detail.html">UEFA bốc thăm lại vòng 1/8 Champions League</a>
-        <p>1 giờ</p>
-    </div>
-</div>
-<div class="main-content-below">
-    <div>
-        <div class="img-container"><a href="/detail.html"><img class="content-below rounded" src="https://i1-thethao.vnecdn.net/2021/12/13/LVT6582-1639361665-8547-1639361718.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=eq_XJpQvkffooVzbCbjbzg" alt=""></a></div>
-        <div class="title">
-            <a href="/detail.html">HLV Indonesia: ‘Chúng tôi không sợ Việt Nam’</a>
-            <p>2 giờ</p>
+﻿@model IEnumerable<BTL.Models.article>
+@{
+    int i = 1;
+    var currTime = DateTime.Now;
+    <div class="main-content">
+        <div class="main-img-container"><a href="/detail/@Model.First().id"><img class="main-content-img rounded" src="~/images/@Model.First().thumbnail" alt=""></a></div>
+        <div class="main-content-title">
+            <a href="/detail/@Model.First().id">@Model.First().title</a>
+            <p>@((int)(currTime- Model.First().createAt).TotalHours) giờ</p>
         </div>
     </div>
-    <div>
-        <div class="img-container"><a href="/detail.html"><img class="content-below rounded" src="https://i1-thethao.vnecdn.net/2021/12/13/NewProject25-1639358981-5301-1639359063.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=JG-lsSRTFE-LPt-RGxzOyg" alt=""></a></div>
-        <div class="title">
-            <a href="/detail.html">Covid-19 bùng phát ở Man Utd</a>
-            <p>7 giờ</p>
-        </div>
+    <div class="main-content-below">
+        @foreach (var item in Model)
+        {
+            if (i > 1)
+            {
+                <div>
+                    <div class="img-container"><a href="/detail/@item.id"><img class="content-below rounded" src="~/images/@item.thumbnail" alt=""></a></div>
+                    <div class="title">
+                        <a href="/detail/@item.id">@item.title</a>
+                        <p>@((int)(currTime - item.createAt).TotalHours) giờ</p>
+                    </div>
+                </div>
+            }
+            i++;
+        }
+
     </div>
-    <div>
-        <div class="img-container"><a href="/detail.html"><img class="content-below rounded" src="https://i1-thethao.vnecdn.net/2021/12/10/1-1639127212-1639127221-2210-1639127311.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=q00B7qEscT3bd1KFG1nnXw" alt=""></a></div>
-        <div class="title">
-            <a href="/detail.html">Djokovic được đề cử VĐV hay nhất 2021</a>
-            <p>4 giờ</p>
-        </div>
-    </div>
-</div>
+}

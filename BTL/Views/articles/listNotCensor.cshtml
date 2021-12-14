@@ -3,9 +3,16 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
+<style>
+    .censor{
+        font-size:1rem;
+    }
+    .censor:hover{
+        color: forestgreen !important;
+    }
+</style>
+<h2>Duyệt bài viết</h2>
 
-<h2>@ViewBag.title</h2>
-@Html.AntiForgeryToken()
 <div class="card">
     <div class="card-body">
 
@@ -27,7 +34,7 @@
                 Ngày tạo
             </th>
             <th>
-                <a class="btn-icon" href="/articles/create"><i title="Thêm bài viết" class="fa-plus-circle fas"></i></a>
+                
             </th>
             </thead>
 
@@ -50,7 +57,7 @@
                         @item.createAt.Date.ToString("dd/MM/yyyy")
                     </td>
                     <td>
-                        <a class="func-link edit-link" href="/articles/edit/@item.id"><i class="fas fa-edit func-icon"></i></a>
+                        <a class="func-link details-link btn-icon" href="/censor/@item.id"><i class="fas fa-clipboard-check censor"></i></a>
                         <a class="func-link details-link" href="/articles/details/@item.id"><i class="fas fa-ellipsis-v func-icon"></i></a>
                         <a class="func-link delete-link article-remove" index="@item.id" href="#"><i class="fas fa-trash-alt func-icon"></i></a>
                     </td>

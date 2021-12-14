@@ -17,7 +17,33 @@ namespace BTL.Controllers
     public class articlesController : Controller
     {
         private NewsData db = new NewsData();
-
+        [AdminAuthorize]
+        [Route("censor")]
+        public ActionResult listNotCensor()
+        {
+            var articles = db.articles.Include(a => a.category).Include(a => a.journalist).Where(t=>t.status.Equals("INITIAL"));
+            return View(articles);
+        }
+        [AdminAuthorize]
+        [HttpPost]
+        [Route("censor/{id}")]
+        public ActionResult changeStatus(long id)
+        {
+            try
+            {
+                var article = db.articles.Find(id);
+                article.status = "PUBLISH";
+                db.Entry(article).State = EntityState.Modified;
+                db.SaveChanges();
+                Response.StatusCode = 200;
+                return Json(new { msg = "Đã xuất bản!!" }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                Response.StatusCode = 500;
+                return Json(new { msg = "Có lỗi xảy ra!!" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         // GET: articles
         public ActionResult Index()
         {
@@ -135,37 +161,34 @@ namespace BTL.Controllers
                     ModelState["thumbnail"].Errors.Clear();
                     string __filename = System.IO.Path.GetFileName(__file.FileName);
                     string __path = Server.MapPath("~/images/") + __filename;
-                    article.thumbnail = __filename;
+                    currArticle.thumbnail = __filename;
                     __file.SaveAs(__path);
-                }
-                else
-                {
-                    article.thumbnail = currArticle.thumbnail;
-                    ModelState["thumbnail"].Errors.Clear();
                 }
 
                 var keys = f["keywords"].Split(',').Select(t => long.Parse(t)).ToList();
                 if (keys.Count!=0)
                 {
-                    foreach(var i in currArticle.keywords)
-                    {
-                        article.keywords.Remove(i);
-                        if (article.keywords.Count == 0) break;
-                    }
+
+                    currArticle.keywords.Clear();
                     foreach (var i in keys)
-                    {                       
-                        article.keywords.Add(db.keywords.Find(i));
+                    {
+                        currArticle.keywords.Add(db.keywords.Find(i));
                     }
 
                 }
-                article.updateAt = DateTime.Now;
-                if (ModelState.IsValid)
+                currArticle.updateAt = DateTime.Now;
+                currArticle.categoryId = article.categoryId;
+                currArticle.journalistId = article.journalistId;
+                currArticle.title = article.title;
+                currArticle.description = article.description;
+                foreach (var modelValue in ModelState.Values)
                 {
-                    db.Entry(article).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    modelValue.Errors.Clear();
                 }
-                return RedirectToAction("edit", "articles");
+                db.Entry(currArticle).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
             }
             catch (Exception e)
             {

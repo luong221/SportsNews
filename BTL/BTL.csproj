@@ -152,6 +152,7 @@
     <Compile Include="Controllers\keywordsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\usersController.cs" />
+    <Compile Include="Controllers\ViewDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -664,6 +665,14 @@
     <Content Include="Content\admin\vendors\bootstrap-datepicker\bootstrap-datepicker.min.css" />
     <Content Include="Content\admin\vendors\bootstrap-datepicker\bootstrap-datepicker.min.js" />
     <Content Include="Content\admin\vendors\bootstrap-maxlength\bootstrap-maxlength.min.js" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\admin\vendors\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\admin\vendors\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\admin\vendors\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\admin\vendors\bootstrap\js\npm.js" />
     <Content Include="Content\admin\vendors\chart.js\Chart.min.js" />
     <Content Include="Content\admin\vendors\clipboard\clipboard.min.js" />
     <Content Include="Content\admin\vendors\codemirror\ambiance.css" />
@@ -3091,6 +3100,7 @@
     <Content Include="Content\OwlCarousel2-2.3.4\test\unit\core.js" />
     <Content Include="Content\simplescrollup-master\simplescrollup.js" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Subtract.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3351,6 +3361,14 @@
     <Content Include="Content\fonts\Roboto\Roboto-Regular.ttf" />
     <Content Include="Content\fonts\Roboto\Roboto-Regular.woff" />
     <Content Include="Content\fonts\Roboto\Roboto-Regular.woff2" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap-theme.min.css.map" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\admin\vendors\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\admin\vendors\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\admin\vendors\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\admin\vendors\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\admin\vendors\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3409,7 +3427,8 @@
     <Content Include="Views\keywords\Edit.cshtml" />
     <Content Include="Views\keywords\Index.cshtml" />
     <Content Include="Views\Shared\_JournalistLayout.cshtml" />
-    <Content Include="Views\journalist\Index.cshtml" />
+    <Content Include="Views\articles\listNotCensor.cshtml" />
+    <Content Include="Views\ViewData\detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

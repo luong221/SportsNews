@@ -19,7 +19,7 @@ namespace BTL.Controllers
         // GET: journalists
         public ActionResult Index()
         {
-            var journalists = db.journalists.Include(j => j.role);
+            var journalists = db.journalists.Include(j => j.role).Where(t=>!t.name.Equals("ADMIN"));
             return View(journalists.ToList());
         }
 

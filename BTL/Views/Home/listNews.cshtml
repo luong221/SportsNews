@@ -1,114 +1,15 @@
-﻿<div class="other">
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/12/z301615180725099ad9b0048bbf3ca-9760-8639-1639321008.jpg?w=220&h=132&q=100&dpr=1&fit=crop&s=PhSmq-dNCT5_XvXl2ZxpKA" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Quang Hải: ‘Chiến thắng nào cũng quan trọng’</a>
-            <p>3 giờ</p>
+﻿@model IEnumerable<BTL.Models.article>
+<div class="other">
+    @foreach (var i in Model)
+    {
+        <div class="other-content">
+            <div class="other-img-container rounded"><a href="/detail/@i.id"> <img class="other-content-img rounded" src="~/images/@i.thumbnail"/></a></div>
+            <div class="other-title">
+                <a href="/detail/@i.id">@i.title</a>
+                <p>@((int)(DateTime.Now - i.createAt).TotalHours) giờ</p>
+            </div>
         </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/01/Settop-Messi-QBV-2021-jpeg.jpg?w=500&h=300&q=100&dpr=1&fit=crop&s=JdrVPS0ZRIKk-g0x2RHCTw" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">7 Quả Bóng Vàng của Messi </a>
-            <p>11 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/12/ibra-lapresse-1639269870-8555-1639269930.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=q4kk7qhYhBJVHN7-xqQefQ" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Ibrahimovic chạm mốc thành tích hiếm của Ronaldo, Messi</a>
-            <p>5 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/12/untitled-9322-1639244182-16392-8880-5350-1639261989.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=YjDMBNW7Z2tpoleAkkC6ig" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Gerrard thất bại trong ngày về Anfield</a>
-            <p>9 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/11/sarri-jpeg-1639202668-2717-1639202741.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=BH7_VD_zb8YDLh9m8G4RVA" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Sarri, Moyes muốn sớm gặp Barca</a>
-            <p>2 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/08/3-1638931757-8953-1638932004.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=-4naQWdD19RwNwE1iO57mA" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Djokovic – Medvedev: Kỳ phùng địch thủ của năm 2021</a>
-            <p>2 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/06/1-1638757107-1638757126-9466-1638757232.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=1bkISp_bpxRiFMMN2L0Jdw" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Medvedev giúp Nga vô địch Davis Cup</a>
-            <p>5 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/04/3-1638586000-7076-1638586164.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=XJ2-XOncXBbm5HrsLrzAAQ" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Djokovic thua bán kết Davis Cup</a>
-            <p>7 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/11/26/1-1637896510-5839-1637896663.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=6kbGCSKNA25DwblmnXVO1Q" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Cựu số một thế giới tin Federer hết thời</a>
-            <p>11 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/11/24/3-1637749300-3561-1637749462.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=-dH0Xc_JdDrCI2Ifpw8ogA" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">90% tay vợt chuyên nghiệp thu nhập không đủ sống</a>
-            <p>11 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/11/20/1-1637415932-6704-1637416002.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=IKquUXPcdxdNSICBtMnAuw" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Australia Mở rộng cấm các tay vợt không tiêm vaccine</a>
-            <p>8 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/08/08/167b2012-9332-43d4-8309-17089a-9409-9271-1628356886.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=NYY6hBEAPaYjTyXOaRj6gQ" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Valentino Rossi giải nghệ</a>
-            <p>10 giờ</p>
-        </div>
-    </div>
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/09/26/fam5lr2vqayash9-jpeg-163265148-6357-7568-1632651505.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=zgJpU1E6GswbwX2dI-nviA" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Bại tướng của Kipchoge vô địch Berlin Marathon 2021</a>
-            <p>2 giờ</p>
-        </div>
-    </div>
-
-    <div class="other-content">
-        <div class="other-img-container rounded"><a href="/detail.html"><img class="other-content-img rounded" src="https://i1-thethao.vnecdn.net/2021/12/01/magnus-1638333530-1638333538-6524-1638333580.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=kyMoZFdyY882alYqoIgoHw" alt=""></a></div>
-        <div class="other-title">
-            <a href="/detail.html">Vua cờ Carlsen hòa trong ngày sinh nhật</a>
-            <p>8 giờ</p>
-        </div>
-    </div>
+    }
 
 </div>
 

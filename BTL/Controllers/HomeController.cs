@@ -8,15 +8,17 @@ namespace BTL.Controllers
 {
     public class HomeController : Controller
     {
+        private NewsData db = new NewsData();
         [Route("")]
         [Route("home")]
         public ActionResult Index()
         {
-            return View();
+            return View(db.articles.Select(t=>t).OrderBy(t=>t.id).Take(4).ToList());
         }
         public PartialViewResult listNews()
         {
-            return PartialView();
+            var articles = db.articles.Select(t => t).OrderBy(t => t.id).Skip(0).Take(20).ToList();
+            return PartialView(articles);
         }
         [HttpGet]
         public PartialViewResult getListData(int page=0)

@@ -16,11 +16,11 @@ $(document).ready(function() {
 
     $(window).scroll(function () {
         if ($(window).scrollTop() > 69) {
-            $('.navbar').addClass('navbar-fixed');
+            $('.navbars').addClass('navbar-fixed');
             $('.content').addClass('content-fixed');
         }
         if ($(window).scrollTop() < 70) {
-            $('.navbar').removeClass('navbar-fixed');
+            $('.navbars').removeClass('navbar-fixed');
             $('.content').removeClass('content-fixed');
         }
     });
