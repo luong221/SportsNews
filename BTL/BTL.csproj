@@ -143,16 +143,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\articlesController.cs" />
-    <Compile Include="Controllers\categoriesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JournalistController.cs" />
-    <Compile Include="Controllers\journalistsController.cs" />
-    <Compile Include="Controllers\keywordsController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\usersController.cs" />
-    <Compile Include="Controllers\ViewDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3430,6 +3420,7 @@
     <Content Include="Views\articles\listNotCensor.cshtml" />
     <Content Include="Views\ViewData\detail.cshtml" />
     <Content Include="Views\ViewData\viewByCategory.cshtml" />
+    <Content Include="Views\comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
