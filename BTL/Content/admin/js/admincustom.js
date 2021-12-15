@@ -17,7 +17,50 @@ function b64_to_utf8(str) {
 }
 var editors;
 $(document).ready(function () {
-  
+    function customMatcher(params, data) {
+        // Always return the object if there is nothing to compare
+        if ($.trim(params.term) === '') {
+            return data;
+        }
+
+        if (data.children && data.children.length > 0) {
+            // Clone the data object if there are children
+            // This is required as we modify the object to remove any non-matches
+            var match = $.extend(true, {}, data);
+
+            // Check each child of the option
+            for (var c = data.children.length - 1; c >= 0; c--) {
+                var child = data.children[c];
+
+                var matches = customMatcher(params, child);
+                // console.log(matches);
+
+                // If there wasn't a match, remove the object in the array
+                if (matches == null) {
+                    match.children.splice(c, 1);
+                }
+            }
+
+            // If any children matched, return the new object
+            if (match.children.length > 0) {
+                return match;
+            }
+
+            // If there were no matching children, check just the plain object
+            return customMatcher(params, match);
+        }
+
+        var original = data.text.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        var term = params.term.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
+
+        // Check if the text contains the term
+        if (original.indexOf(term) > -1) {
+            return data;
+        }
+
+        // If it doesn't contain the term, don't return anything
+        return null;
+    }
     DecoupledEditor
         .create(document.querySelector('#editor'))
         .then(editor => {
