@@ -23,7 +23,7 @@ namespace BTL.Controllers
         [Route("censor")]
         public ActionResult listNotCensor()
         {
-            var articles = db.articles.Include(a => a.category).Include(a => a.journalist).Where(t=>t.status.Equals("INITIAL"));
+            var articles = db.articles.Include(a => a.category).Include(a => a.info).Where(t=>t.status.Equals("ACTIVE"));
             return View(articles);
         }
         [AdminAuthorize]
@@ -50,7 +50,7 @@ namespace BTL.Controllers
         public ActionResult Index()
         {
             ViewBag.title = "Bài Viết";
-            var articles = db.articles.Include(a => a.category).Include(a => a.journalist);
+            var articles = db.articles.Include(a => a.category).Include(a => a.info);
             return View(articles.ToList());
         }
 
@@ -95,7 +95,7 @@ namespace BTL.Controllers
                         string __path = Server.MapPath("~/images/") + __filename;
                         article.thumbnail = __filename;
                         dynamic journalist = Session["USER"];
-                        article.journalistId = journalist is administrative ? "ADMIN" : journalist.id;
+                        article.infoId = journalist.id;
                         article.createAt = DateTime.Now;
                         string[] keys = f["keywordSubmit"].Split(',');
                         db.articles.Add(article);
@@ -141,7 +141,7 @@ namespace BTL.Controllers
                 return HttpNotFound();
             }
             ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
-            ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.journalistId);
+            ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.infoId);
             return View(article);
         }
 
@@ -187,7 +187,7 @@ namespace BTL.Controllers
                     }
                     currArticle.updateAt = DateTime.Now;
                     currArticle.categoryId = article.categoryId;
-                    currArticle.journalistId = article.journalistId;
+                    currArticle.infoId = article.infoId;
                     currArticle.title = article.title;
                     currArticle.description = article.description;
                     foreach (var modelValue in ModelState.Values)

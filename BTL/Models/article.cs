@@ -14,22 +14,16 @@ namespace BTL.Models
         {
             comments = new HashSet<comment>();
             keywords = new HashSet<keyword>();
-            totalView = 0;
-            status = "INITIAL";
         }
 
         public long id { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string journalistId { get; set; }
+        public long infoId { get; set; }
+
+        public long categoryId { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string categoryId { get; set; }
-
-        [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string title { get; set; }
 
         public int? totalView { get; set; }
@@ -51,7 +45,7 @@ namespace BTL.Models
 
         public virtual category category { get; set; }
 
-        public virtual journalist journalist { get; set; }
+        public virtual info info { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<comment> comments { get; set; }

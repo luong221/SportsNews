@@ -17,30 +17,37 @@ namespace BTL.Controllers
         
         public ActionResult Index()
         {
+            var account = (info)Session["USER"];
+            if (account!=null)
+            {
+                if (account.roleId == 1)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    if (account.roleId == 2)
+                    {
+                        return RedirectToAction("Index", "Journalist");
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult authentication(string username,string password)
         {
-            dynamic account = db.users.AsQueryable().Where(t => t.email == username && t.password == password && t.status == "ACTIVE").FirstOrDefault();
-            if (account == null)
-            {
-                account = db.journalists.AsQueryable().Where(t => t.email == username && t.password == password && t.status == "WORKED").FirstOrDefault();
-                if (account == null)
-                {
-                    account = db.administratives.AsQueryable().Where(t => t.email == username && t.password == password).FirstOrDefault();
-                }
-            }
-            
+            var account = db.infoes.Where(t => t.email == username && t.password == password).FirstOrDefault();            
             if(account != null)
             {
-                if (account.roleId == 1)
+                if (Session["USER"] == null)
                 {
-                    if (Session["USER"] == null)
-                    {
-                        Session["USER"] = account;
-                    }
+                    Session["USER"] = account;
+                }
+                if (account.roleId == 1)
+                {                   
                     return RedirectToAction("Index", "Admin");
                 }
                 else

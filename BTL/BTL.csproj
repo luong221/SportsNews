@@ -146,25 +146,24 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\articlesController.cs" />
     <Compile Include="Controllers\categoriesController.cs" />
+    <Compile Include="Controllers\commentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JournalistController.cs" />
-    <Compile Include="Controllers\journalistsController.cs" />
     <Compile Include="Controllers\keywordsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\usersController.cs" />
+    <Compile Include="Controllers\ReaderController.cs" />
     <Compile Include="Controllers\ViewDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\administrative.cs" />
     <Compile Include="Models\article.cs" />
     <Compile Include="Models\category.cs" />
     <Compile Include="Models\comment.cs" />
+    <Compile Include="Models\info.cs" />
     <Compile Include="Models\journalist.cs" />
     <Compile Include="Models\keyword.cs" />
     <Compile Include="Models\NewsData.cs" />
     <Compile Include="Models\role.cs" />
-    <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="security\AdminAuthorize.cs" />
     <Compile Include="security\Admin_JournalistAuthorize.cs" />
@@ -3402,7 +3401,6 @@
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\articles\Create.cshtml" />
-    <Content Include="Views\articles\Delete.cshtml" />
     <Content Include="Views\articles\Details.cshtml" />
     <Content Include="Views\articles\Edit.cshtml" />
     <Content Include="Views\articles\Index.cshtml" />
@@ -3430,6 +3428,9 @@
     <Content Include="Views\articles\listNotCensor.cshtml" />
     <Content Include="Views\ViewData\detail.cshtml" />
     <Content Include="Views\ViewData\viewByCategory.cshtml" />
+    <Content Include="Views\comments\Index.cshtml" />
+    <Content Include="Views\Journalist\Index.cshtml" />
+    <Content Include="Views\Reader\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

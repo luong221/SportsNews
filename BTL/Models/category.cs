@@ -15,8 +15,7 @@ namespace BTL.Models
             articles = new HashSet<article>();
         }
 
-        [StringLength(50)]
-        public string id { get; set; }
+        public long id { get; set; }
 
         [Required]
         [StringLength(100)]

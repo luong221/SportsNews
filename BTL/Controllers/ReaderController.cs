@@ -9,13 +9,13 @@ using System.Web.Mvc;
 namespace BTL.Controllers
 {
     [AdminAuthorize]
-    public class JournalistController : Controller
+    public class ReaderController : Controller
     {
-        // GET: Journalist
+        // GET: Reader
         private NewsData db = new NewsData();
         public ActionResult Index()
         {
-            var info = db.infoes.Where(t => t.role.rolename.Equals("JOURNALIST") && t.status.Equals("ACTIVE")).OrderBy(t => t.id).Take(10);
+            var info = db.infoes.Where(t => t.role.rolename.Equals("READER") && t.status.Equals("ACTIVE")).OrderBy(t => t.id).Take(10);
             return View(info.ToList());
         }
     }

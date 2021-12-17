@@ -8,9 +8,11 @@
     <h2>@Model.title</h2>
     <div id="createAt">@Model.createAt.ToString("dd/MM/yyyy HH:mm UTC z")</div>
     <div id="description"></div>
-    <div id="author"><i class="fas fa-user-edit"></i> @Model.journalist.name</div>
+    <div id="author"><i class="fas fa-user-edit"></i> @Model.info.name</div>
 </div>
-
+@{
+    Html.RenderAction("Index", "Comments");
+}
 <div class="caption-more-detail">
     <div class="caption">
         <a class="title" href="#" title="Có thể bạn quan tâm" onclick="return false;">
@@ -19,7 +21,7 @@
     </div>
 </div>
 @{
-    Html.RenderAction("listNews", "Home");
+    Html.RenderAction("listNews", "Home",new {id=@Model.id});
 }
 <script>
     $(document).ready(function () {
@@ -28,5 +30,22 @@
         }
         var content = b64_to_utf8('@Model.description');
         $("#description").html(content);
+        $("#comment-submit").click(function (e) {
+            e.preventDefault();
+            var content = $("#comment").val();
+            $.ajax({
+                url: "/comments/create",
+                method: "post",
+                data :{
+                    articleId: @Model.id,
+                    description: content
+                }
+            }).done(function (resp) {
+                $(".list-comment").prepend(resp);
+                $("#comment").val('');
+            }).fail(function () {
+                alert("fail");
+            })
+        })
     })
 </script>

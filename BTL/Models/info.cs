@@ -6,16 +6,18 @@ namespace BTL.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class user
+    [Table("info")]
+    public partial class info
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public info()
         {
+            articles = new HashSet<article>();
             comments = new HashSet<comment>();
+            journalists = new HashSet<journalist>();
         }
 
-        [StringLength(50)]
-        public string id { get; set; }
+        public long id { get; set; }
 
         public long roleId { get; set; }
 
@@ -40,7 +42,7 @@ namespace BTL.Models
         public DateTime birthday { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(255)]
         public string address { get; set; }
 
         [StringLength(255)]
@@ -52,8 +54,14 @@ namespace BTL.Models
         public DateTime? createAt { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<article> articles { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<comment> comments { get; set; }
 
         public virtual role role { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<journalist> journalists { get; set; }
     }
 }

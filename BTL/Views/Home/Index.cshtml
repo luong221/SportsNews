@@ -1,31 +1,57 @@
 ﻿@model IEnumerable<BTL.Models.article>
 @{
     int i = 1;
-    var currTime = DateTime.Now;
-    <div class="main-content">
-        <div class="main-img-container"><a href="/detail/@Model.First().id"><img class="main-content-img rounded" src="~/images/@Model.First().thumbnail" alt=""></a></div>
-        <div class="main-content-title">
-            <a href="/detail/@Model.First().id">@Model.First().title</a>
-            <p>@((int)(currTime- Model.First().createAt).TotalHours) giờ</p>
-        </div>
-    </div>
-    <div class="main-content-below">
-        @foreach (var item in Model)
-        {
-            if (i > 1)
-            {
-                <div>
-                    <div class="img-container"><a href="/detail/@item.id"><img class="content-below rounded" src="~/images/@item.thumbnail" alt=""></a></div>
-                    <div class="title">
-                        <a href="/detail/@item.id">@item.title</a>
-                        <p>@((int)(currTime - item.createAt).TotalHours) giờ</p>
-                    </div>
-                </div>
-            }
-            i++;
-        }
+    var time = DateTime.Now - @Model.First().createAt;
+    var displayTime = "";
+    if (time.Days == 0)
+        if (time.Hours == 0)
+            displayTime = (int)time.TotalMinutes + " phút trước";
+        else
+            displayTime = (int)time.TotalHours + " giờ trước";
+    else displayTime = (int)time.TotalDays + " ngày trước";
 
+
+<div class="main-content">
+    <div class="main-img-container"><a href="/detail/@Model.First().id"><img class="main-content-img rounded" src="~/images/@Model.First().thumbnail" alt=""></a></div>
+    <div class="main-content-title">
+        <a href="/detail/@Model.First().id">@Model.First().title</a>
+        <p>@displayTime</p>
     </div>
+</div>
+<div class="main-content-below">
+    @foreach (var item in Model)
+    {
+        if (i > 1)
+        {
+            time = DateTime.Now - item.createAt;
+            displayTime = "";
+            if (time.Days == 0)
+            {
+                if (time.Hours == 0)
+                {
+                    displayTime = (int)time.TotalMinutes + " phút trước";
+                }
+                else
+                {
+                    displayTime = (int)time.TotalHours + " giờ trước";
+                }
+            }
+            else
+            {
+                displayTime = (int)time.TotalDays + " ngày trước";
+            }
+            <div>
+                <div class="img-container"><a href="/detail/@item.id"><img class="content-below rounded" src="~/images/@item.thumbnail" alt=""></a></div>
+                <div class="title">
+                    <a href="/detail/@item.id">@item.title</a>
+                    <p>@displayTime</p>
+                </div>
+            </div>
+        }
+        i++;
+    }
+
+</div>
 }
 @{
     Html.RenderAction("listNews", "Home");

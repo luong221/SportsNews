@@ -12,9 +12,7 @@ namespace BTL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public role()
         {
-            administratives = new HashSet<administrative>();
-            journalists = new HashSet<journalist>();
-            users = new HashSet<user>();
+            infoes = new HashSet<info>();
         }
 
         public long id { get; set; }
@@ -27,12 +25,6 @@ namespace BTL.Models
         public string description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<administrative> administratives { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<journalist> journalists { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user> users { get; set; }
+        public virtual ICollection<info> infoes { get; set; }
     }
 }

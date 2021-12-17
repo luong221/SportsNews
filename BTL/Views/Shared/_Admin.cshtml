@@ -2,10 +2,24 @@
 <!DOCTYPE html>
 <html lang="en">
 @{ 
-    string img = "#";
-    if (Session["USER"] != null) {
-        img = ((dynamic)Session["USER"]).img;
+
+    info a = (info)Session["USER"];
+    var img = a.img;
+    if (a != null)
+    {
+        if (img == null || img == "")
+        {
+            if (a.gender == true)
+            {
+                img = "male.jpeg";
+            }
+            else
+            {
+                img = "female.jpeg";
+            }
+        }
     }
+
 }
 <head>
     <!-- Required meta tags -->
@@ -32,7 +46,6 @@
     <script src="~/Content/ckeditor5/ckeditor.js"></script>
     <script src="~/Content/admin/js/admincustom.js"></script>
     <!-- endinject -->
-    <!--decode content-->
 
 </head>
 <body>
@@ -78,11 +91,11 @@
                                 </div>
                             </a>
 
-                        </div>
+                        </div> 
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="@img" alt="" />
+                            <img src="~/images/@img" alt="" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item">
@@ -151,7 +164,7 @@
                             </a>
                             <div class="collapse" id="journalist">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="/journalists">Danh Sách Nhà Báo</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="/journalist">Danh Sách Nhà Báo</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -163,7 +176,7 @@
                             </a>
                             <div class="collapse" id="reader">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="/users">Danh Sách Bạn Đọc</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="/reader">Danh Sách Bạn Đọc</a></li>
                                 </ul>
                             </div>
                         </li>                        

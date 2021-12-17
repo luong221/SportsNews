@@ -13,9 +13,7 @@ namespace BTL.Models
 
         public long articleId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string userId { get; set; }
+        public long infoId { get; set; }
 
         [Column(TypeName = "ntext")]
         [Required]
@@ -27,6 +25,6 @@ namespace BTL.Models
 
         public virtual article article { get; set; }
 
-        public virtual user user { get; set; }
+        public virtual info info { get; set; }
     }
 }

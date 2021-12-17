@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="~/Content/admin/vendors/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/Content/admin/vendors/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="~/Content/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/admin/vendors/js/vendor.bundle.base.js"></script>
 </head>
 <body>
     <div id="News">
@@ -36,18 +37,30 @@
                         if (Context.Session["USER"] != null)
                         {
                             dynamic a = Context.Session["USER"];
+                            var img = a.img;
+                            if(img == null || img == "")
+                            {
+                                if(a.gender == true)
+                                {
+                                    img = "male.jpeg";
+                                }
+                                else
+                                {
+                                    img = "female.jpeg";
+                                }
+                            }
                             <span>@a.name</span>
-                            <div class="nav-item nav-profile dropdown">
+                            <div class="nav-item nav-profile dropdown profile-container">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                    <img src="" alt="" />
+                                    <img src="~/images/@img" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                    <a class="dropdown-item">
-                                        <i class="ti-settings text-primary"></i>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cog"></i>
                                         Settings
                                     </a>
                                     <a class="dropdown-item" href="/logout">
-                                        <i class="ti-power-off text-primary"></i>
+                                        <i class="fas fa-power-off"></i>
                                         Logout
                                     </a>
                                 </div>

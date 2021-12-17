@@ -30,6 +30,21 @@ $(document).ready(function() {
             getData();
         }
     });
+    $("textarea").each(function () {
+        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+    }).on("input", function () {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+    });
+    $("#comment").keyup(function () {
+        if ($(this).val()!='') {
+            $("#comment-submit").attr("disabled", false);
+        }
+        else {
+            $("#comment-submit").attr("disabled", true);
+        }
+    })
+    
 });
 //    class CountPage {
 //        static page = 1;
