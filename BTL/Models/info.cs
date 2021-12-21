@@ -15,6 +15,7 @@ namespace BTL.Models
             articles = new HashSet<article>();
             comments = new HashSet<comment>();
             journalists = new HashSet<journalist>();
+            status = "ACTIVE";
         }
 
         public long id { get; set; }

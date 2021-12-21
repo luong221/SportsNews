@@ -1,41 +1,40 @@
-﻿@model IEnumerable<BTL.Models.info>
+﻿@model PagedList.IPagedList<BTL.Models.info>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Nhà báo</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
 <div class="card">
     <div class="card-body">
         <table class="table">
+            @Html.AntiForgeryToken()
             <thead>
-                <th>
-                    @Html.DisplayNameFor(model => model.email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.lastname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.gender)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.birthday)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.img)
-                </th>
-                <th></th>
+            <th>
+               email
+            </th>
+            <th>
+                tên
+            </th>
+            <th>
+                họ
+            </th>
+            <th>
+                giới tính
+            </th>
+            <th>
+                ngày sinh
+            </th>
+            <th>
+                địa chỉ
+            </th>
+            <th>
+                ảnh
+            </th>
+            <th></th>
             </thead>
 
             @foreach (var item in Model)
@@ -82,14 +81,15 @@
                         <img src="~/images/@img" alt="" />
                     </td>
                     <td>
-                        <a class="func-link edit-link" href="/articles/edit/@item.id"><i class="fas fa-edit func-icon"></i></a>
-                        <a class="func-link details-link" href="/articles/details/@item.id"><i class="fas fa-ellipsis-v func-icon"></i></a>
-                        <a class="func-link delete-link" href="/articles/delete/@item.id"><i class="fas fa-trash-alt func-icon"></i></a>
+                        <a class="func-link edit-link" href="/info/edit/@item.id"><i data-toggle="tooltip" data-placement="top" title="sửa thông tin" class="fas fa-edit func-icon"></i></a>
+                        <a class="func-link details-link" href="/journalist/details/@item.id"><i data-toggle="tooltip" data-placement="top" title="xem chi tiết" class="fas fa-ellipsis-v func-icon"></i></a>
+                        <a class="func-link delete-link" href="#"><i index="@item.id" data-toggle="tooltip" data-placement="top" title="xóa nhà báo" class="fas fa-trash-alt func-icon journalist-remove"></i></a>
                     </td>
                 </tr>
             }
 
         </table>
+        <div class="col-md-12 text-center">@Html.PagedListPager(Model, c => Url.Action("Index", new { page = c, pageSize = 5 }))</div>
     </div>
 </div>
 

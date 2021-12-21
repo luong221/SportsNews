@@ -57,34 +57,14 @@
                         @item.createAt.Date.ToString("dd/MM/yyyy")
                     </td>
                     <td>
-                        <a class="func-link details-link btn-icon" href="/censor/@item.id"><i class="fas fa-clipboard-check censor"></i></a>
-                        <a class="func-link details-link" href="/articles/details/@item.id"><i class="fas fa-ellipsis-v func-icon"></i></a>
-                        <a class="func-link delete-link article-remove" index="@item.id" href="#"><i class="fas fa-trash-alt func-icon"></i></a>
+                        <a class="func-link details-link btn-icon" title="Duyệt bài" href="#"><i data-toggle="tooltip" data-placement="top" title="duyệt bài" class="fas fa-clipboard-check censor" index="@item.id"></i></a>
+                        <a class="func-link details-link" title="Xem chi tiết" href="/articles/details/@item.id"><i data-toggle="tooltip" data-placement="top" title="xem chi tiết" class="fas fa-ellipsis-v func-icon"></i></a>
+                        <a class="func-link delete-link article-remove" index="@item.id" href="#"><i data-toggle="tooltip" data-placement="top" title="xóa bài viết" class="fas fa-trash-alt func-icon"></i></a>
                     </td>
                 </tr>
             }
 
         </table>
 
-    </div>
-</div>
-
-<div class="modal fade" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary confirm-delete">Xóa</button>
-            </div>
-        </div>
     </div>
 </div>

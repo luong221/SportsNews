@@ -60,6 +60,12 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -148,10 +154,12 @@
     <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="Controllers\commentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\infoesController.cs" />
     <Compile Include="Controllers\JournalistController.cs" />
     <Compile Include="Controllers\keywordsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReaderController.cs" />
+    <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\ViewDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3097,6 +3105,7 @@
     <Content Include="Content\OwlCarousel2-2.3.4\test\index.html" />
     <Content Include="Content\OwlCarousel2-2.3.4\test\unit\autoplay.js" />
     <Content Include="Content\OwlCarousel2-2.3.4\test\unit\core.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\simplescrollup-master\simplescrollup.js" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Subtract.svg" />
@@ -3409,16 +3418,6 @@
     <Content Include="Views\categories\Details.cshtml" />
     <Content Include="Views\categories\Edit.cshtml" />
     <Content Include="Views\categories\Index.cshtml" />
-    <Content Include="Views\journalists\Create.cshtml" />
-    <Content Include="Views\journalists\Delete.cshtml" />
-    <Content Include="Views\journalists\Details.cshtml" />
-    <Content Include="Views\journalists\Edit.cshtml" />
-    <Content Include="Views\journalists\Index.cshtml" />
-    <Content Include="Views\users\Create.cshtml" />
-    <Content Include="Views\users\Delete.cshtml" />
-    <Content Include="Views\users\Details.cshtml" />
-    <Content Include="Views\users\Edit.cshtml" />
-    <Content Include="Views\users\Index.cshtml" />
     <Content Include="Views\keywords\Create.cshtml" />
     <Content Include="Views\keywords\Delete.cshtml" />
     <Content Include="Views\keywords\Details.cshtml" />
@@ -3431,9 +3430,28 @@
     <Content Include="Views\comments\Index.cshtml" />
     <Content Include="Views\Journalist\Index.cshtml" />
     <Content Include="Views\Reader\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\infoes\Create.cshtml" />
+    <Content Include="Views\infoes\Details.cshtml" />
+    <Content Include="Views\infoes\Edit.cshtml" />
+    <Content Include="Views\infoes\EditInfor.cshtml" />
+    <Content Include="Views\ViewData\viewByKeyword.cshtml" />
+    <Content Include="Views\ViewData\search.cshtml" />
+    <Content Include="Views\Journalist\details.cshtml" />
+    <Content Include="Views\Reader\details.cshtml" />
+    <Content Include="Views\ViewData\searchByAdmin.cshtml" />
+    <Content Include="Views\ViewData\article.cshtml" />
+    <Content Include="Views\ViewData\category.cshtml" />
+    <Content Include="Views\ViewData\journalist.cshtml" />
+    <Content Include="Views\ViewData\reader.cshtml" />
+    <Content Include="Views\Journalist\article.cshtml" />
+    <Content Include="Views\articles\j_details.cshtml" />
+    <Content Include="Views\articles\j_edit.cshtml" />
+    <Content Include="Views\articles\j_create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Statistic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

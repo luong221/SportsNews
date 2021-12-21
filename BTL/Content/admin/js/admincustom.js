@@ -1,12 +1,6 @@
-﻿$('.custom-toggle').click(function () {
-    if ($('.custom-toggle > i').css("transform") == 'matrix(1, 0, 0, 1, 0, 0)' || $('.custom-toggle > i').css("transform") == 'none') {
-        $('.custom-toggle > i').css("transform", "rotate(180deg)");
-    }
-    else {
-        $('.custom-toggle > i').css("transform", "rotate(0deg)");
-    }
-    
-})
+﻿
+
+
 
 function utf8_to_b64(str) {
     return window.btoa(unescape(encodeURIComponent(str)));
@@ -17,50 +11,22 @@ function b64_to_utf8(str) {
 }
 var editors;
 $(document).ready(function () {
-    function customMatcher(params, data) {
-        // Always return the object if there is nothing to compare
-        if ($.trim(params.term) === '') {
-            return data;
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+
+    $('.custom-toggle').click(function () {
+        console.log($('.custom-toggle > i').css("transform"))
+        if ($('.custom-toggle > i').css("transform") == 'matrix(1, 0, 0, 1, 0, 0)' || $('.custom-toggle > i').css("transform") == 'none') {
+            $('.custom-toggle > i').css("transform", "rotate(180deg)");
+        }
+        else {
+            $('.custom-toggle > i').css("transform", "rotate(0deg)");
         }
 
-        if (data.children && data.children.length > 0) {
-            // Clone the data object if there are children
-            // This is required as we modify the object to remove any non-matches
-            var match = $.extend(true, {}, data);
-
-            // Check each child of the option
-            for (var c = data.children.length - 1; c >= 0; c--) {
-                var child = data.children[c];
-
-                var matches = customMatcher(params, child);
-                // console.log(matches);
-
-                // If there wasn't a match, remove the object in the array
-                if (matches == null) {
-                    match.children.splice(c, 1);
-                }
-            }
-
-            // If any children matched, return the new object
-            if (match.children.length > 0) {
-                return match;
-            }
-
-            // If there were no matching children, check just the plain object
-            return customMatcher(params, match);
-        }
-
-        var original = data.text.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
-        var term = params.term.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
-
-        // Check if the text contains the term
-        if (original.indexOf(term) > -1) {
-            return data;
-        }
-
-        // If it doesn't contain the term, don't return anything
-        return null;
-    }
+    })
     DecoupledEditor
         .create(document.querySelector('#editor'))
         .then(editor => {
@@ -134,15 +100,17 @@ $(document).ready(function () {
             $("#alert-msg").fadeTo(500, 0).slideUp(500, function () {
                 $(this).hide();
                 $(this).empty();
+                $(this).removeClass(classname);
             });
-        }, 3000);
+        }, 4000);
     }
 
     $('.select2-selection').click(function (e) {
-        if ((e.target.getAttribute("class") == "select2-selection__rendered" || e.target.getAttribute("aria-owns") == "select2-keyword-results") && $(".select2-dropdown").children()[0].getAttribute('class') != 'addKeyword') {
+        if ((e.target.parentNode.getAttribute("aria-owns") == "select2-keyword-results" || e.target.getAttribute("aria-owns") == "select2-keyword-results") && $(".select2-dropdown").children()[0].getAttribute('class') != 'addKeyword') {
             $(".select2-dropdown").prepend("<div class='addKeyword'><input type=text name='keyword' id='keyword-input' placeholder='Nhập để thêm Từ Khóa....'/><i title='Thêm từ khóa mới' class='submit-keyword fas fa-plus-circle'></i></div>")
         }
-        $('.submit-keyword').click(function () {
+        $('.submit-keyword').unbind().bind('click', function (e) {
+            e.preventDefault()
             var data = $('#keyword-input').val();
             var token = $('input[name="__RequestVerificationToken"]').val();
             if (data.length > 1) {
@@ -171,29 +139,48 @@ $(document).ready(function () {
         $("#keywordSubmit").val(keys);
         $("#form-article").submit()
     })
-    $(".article-remove").click(function (e) {
-        $('.modal-body').html('Bạn có muốn xóa ?' + $(e.target).val());
+    function deleteObject(url, content,objectId,event) {
+        $('.modal-body').html(content);
         $('#ModalConfirm').modal('show');
         var token = $('input[name="__RequestVerificationToken"]').val();
         $('.confirm-delete').click(function () {
             $.ajax({
-                url: 'articles/delete',
+                url: url,
                 data: {
-                    id: e.target.parentNode.getAttribute('index'),
+                    id: objectId,
                     __RequestVerificationToken: token
                 },
-                method:'post'
+                method: 'post'
             }).done(function (resp) {
                 $('#ModalConfirm').modal('hide');
-                remove(e)
+                remove(event)
                 alertMsg("alert-success", resp, "done");
 
             }).fail(function (resp) {
                 alertMsg("alert-success", resp, "done");
             })
         })
+    }
+    $(".article-remove").click(function (e) {
+        e.preventDefault();
+        let id = e.target.getAttribute('index');
+        deleteObject("/articles/delete", "Bạn có muốn xóa bài viết này ?", id, e);
     })
-
+    $(".censor").click(function (e) {
+        e.preventDefault();
+        let id = e.target.getAttribute('index');
+        deleteObject("/censor", "Bạn có muốn duyệt bài viết này ?", id, e);
+    })
+    $(".journalist-remove").click(function (e) {
+        e.preventDefault();
+        let id = e.target.getAttribute('index');
+        deleteObject("/info/delete", "Bạn có xóa nhà báo này ?", id, e);
+    })
+    $(".reader-remove").click(function (e) {
+        e.preventDefault();
+        let id = e.target.getAttribute('index');
+        deleteObject("/info/delete", "Bạn có muốn xóa bạn đọc này ?", id, e);
+    })
     function remove(e) {
         var currNode = e.target;
         while (currNode && currNode.tagName != "TR") {
@@ -201,6 +188,86 @@ $(document).ready(function () {
         }
         $(currNode).remove();
     }
+
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#password");
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+    $('#img-file').change(function () {
+        const file = $('#img-file')[0].files[0];
+        if (file) {
+            $(".img").css("background", "url(" + URL.createObjectURL(file) + ")");
+            $(".img").css("background-position", "center");
+            $(".img").css("background-size", "cover");
+        }
+    })
+
+    const ctx = document.getElementById('myChart');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Số bài viết trong tháng",
+                data: [],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    ajax_chart(myChart);
+    $('#month,#year').change(function () {
+        ajax_chart(myChart)
+    })
+    function ajax_chart(chart) {
+        var data = data || {};
+        $.ajax({
+            url: '/countArticleInMonth/' + $('#month').val() + '/' + $('#year').val(),
+            method: 'get'
+        }).done(function (resp) {
+            var label = []
+            var value = []
+            resp.forEach(function (e) {
+                label.push(e.label)
+                value.push(e.value)
+            })
+            chart.data.labels = label;
+            chart.data.datasets[0].data = value;
+            chart.update();
+        }).fail(function (resp) {
+            console.log(resp);
+        })
+        
+    }
+    
 })
 
 

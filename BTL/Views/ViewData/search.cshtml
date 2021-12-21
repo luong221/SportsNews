@@ -1,0 +1,36 @@
+﻿@model List<BTL.Models.article>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>@ViewBag.title</h3>
+<div class="other">
+    @foreach (var i in Model)
+    {
+        var time = DateTime.Now - i.createAt;
+        var displayTime = "";
+        if (time.Days == 0)
+        {
+            if (time.Hours == 0)
+            {
+                displayTime = (int)time.TotalMinutes + " phút trước";
+            }
+            else
+            {
+                displayTime = (int)time.TotalHours + " giờ trước";
+            }
+        }
+        else
+        {
+            displayTime = (int)time.TotalDays + " ngày trước";
+        }
+        <div class="other-content">
+            <div class="other-img-container rounded"><a href="/detail/@i.id"> <img class="other-content-img rounded" src="~/images/@i.thumbnail" /></a></div>
+            <div class="other-title">
+                <a href="/detail/@i.id">@i.title</a>
+                <p>@displayTime</p>
+            </div>
+        </div>
+    }
+
+</div>
+

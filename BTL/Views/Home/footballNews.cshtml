@@ -1,76 +1,32 @@
-﻿<div class="football">
+﻿@model IEnumerable<BTL.Models.article>
+<div class="football">
     <div class="category">
-        <h2><a href="/detail.html"><span>Bóng đá</span></a></h2>
+        <h2><a href="#"><span>Bóng đá</span></a></h2>
     </div>
     <div class="slide-content">
-        <div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/13/nico-efe-goal-jpeg-5197-163933-5367-3972-1639384781.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=atFnOHS7aJfH2gNG2dym0Q" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Xavi: 'Barca không thể phó mặc cho các cầu thủ tuổi teen'</a>
-                    <p>3 giờ</p>
-                </div>
+        @for (int i = 0; i < Math.Ceiling(Model.Count() / 3 * 1.0); i++)
+        {
+            <div>
+                @for (int j = i * 3; j < i * 3 + 3 && j < Model.Count(); j++)
+                {
+                    var time = DateTime.Now - @Model.ElementAt(j).createAt;
+                    var displayTime = "";
+                    if (time.Days == 0)
+                        if (time.Hours == 0)
+                            displayTime = (int)time.TotalMinutes + " phút trước";
+                        else
+                            displayTime = (int)time.TotalHours + " giờ trước";
+                    else
+                        displayTime = (int)time.TotalDays + " ngày trước";
+                    <div class="slide">
+                        <div class="right-img-container"><a href="/detail/@Model.ElementAt(j).id"><img class="sidebar-content-img" src="~/images/@Model.ElementAt(j).thumbnail" alt=""></a></div>
+                        <div class="right-title">
+                            <a href="/detail/@Model.ElementAt(j).id">@Model.ElementAt(j).title</a>
+                            <p>@displayTime</p>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/13/lautaro-jpeg-1639352256-7892-1639354327.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=lcfAq0i2ho-GP3yCNEkSWw" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Inter đòi lại ngôi đầu Serie A</a>
-                    <p>5 giờ</p>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/13/New-Project-23-4595-1639352184.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=KkSgPEP-K9t9EZqsu58VGg" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Mbappe lập kỷ lục với PSG</a>
-                    <p>8 giờ</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/12/Untitled-2165-1639315359.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=R-3NL1E7wFTWN6dOnfut-w" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Việt Nam thắng dễ Malaysia</a>
-                    <p>12 giờ</p>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/12/NewProject16-1639274444-7695-1639274590.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=HfWWeh1_jzzxOTfiMt5haw" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Rangnick chê cầu thủ Man Utd</a>
-                    <p>17 giờ</p>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/12/cr7-jpeg-1639251823-8802-1639251875.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=QI5FhZ8sXBKerAxC4Bpz9g" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Ronaldo giúp Man Utd thắng đội chót bảng</a>
-                    <p>11 giờ</p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/12/1-1639243612-1639243624-5725-1639243880.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=ciByBn2emG5irP99IN4cew" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Quả phạt đền phút bù giờ cứu Chelsea</a>
-                    <p>2 giờ</p>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/11/Untitled-6958-1639234776.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=IKOPdOg2KFRo_R0pJWyjhg" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Man City thắng nhọc dù hơn người ở Ngoại hạng Anh</a>
-                    <p>21 giờ</p>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="right-img-container"><a href="/detail.html"><img class="sidebar-content-img" src="https://i1-thethao.vnecdn.net/2021/12/11/LVT9870-1639198559-1675-1639198564.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=u_tGZYoqSS3Fcaze-pMDKQ" alt=""></a></div>
-                <div class="right-title">
-                    <a href="/detail.html">Xuân Trường: 'Việt Nam sẽ không cho Malaysia ghi bàn'</a>
-                    <p>8 giờ</p>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>

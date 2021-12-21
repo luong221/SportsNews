@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BTL.Models.article>
+
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>@ViewBag.title</h2>
+@Html.AntiForgeryToken()
+<div class="card">
+    <div class="card-body">
+
+        <table class="table table-hover">
+            <thead>
+            <th>
+                ID
+            </th>
+            <th>
+                Tác giả
+            </th>
+            <th>
+                Tiêu đề
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Ngày tạo
+            </th>
+            <th>
+                <a class="btn-icon" href="/articles/create"><i data-toggle="tooltip" data-placement="top" title="Thêm bài viết" class="fa-plus-circle fas"></i></a>
+            </th>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.info.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td>
+                        <img src="~/images/@item.thumbnail" alt="" />
+                    </td>
+                    <td>
+                        @item.createAt.Date.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        <a class="func-link edit-link" href="/articles/edit/@item.id"><i data-toggle="tooltip" data-placement="top" title="sửa bài viết" class="fas fa-edit func-icon"></i></a>
+                        <a class="func-link details-link" href="/articles/details/@item.id"><i data-toggle="tooltip" data-placement="top" title="xem chi tiết bài viết" class="fas fa-ellipsis-v func-icon"></i></a>
+                        <a class="func-link delete-link" href="#"><i index="@item.id" data-toggle="tooltip" data-placement="top" title="xóa bài viết" class="fas fa-trash-alt func-icon article-remove"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
+

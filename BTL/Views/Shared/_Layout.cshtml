@@ -1,4 +1,11 @@
 ﻿@using BTL.Models
+@{ 
+    double total = 0;
+    using (NewsData db = new NewsData())
+    {
+        total = Math.Ceiling(db.articles.Count()*1.0 / 10);
+    }
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +34,8 @@
                     </a>
                 </div>
                 <div class="header_align-center">
-                    <form action="#" method="get" id="search-form">
-                        <input type="text" name="search" id="search" placeholder="Nhập nội dung tìm kiếm">
+                    <form action="/search" method="get" id="search-form">
+                        <input type="text" name="keyword" id="search" placeholder="Nhập nội dung tìm kiếm">
                         <button type="submit" id="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
@@ -38,9 +45,9 @@
                         {
                             dynamic a = Context.Session["USER"];
                             var img = a.img;
-                            if(img == null || img == "")
+                            if (img == null || img == "")
                             {
-                                if(a.gender == true)
+                                if (a.gender == true)
                                 {
                                     img = "male.jpeg";
                                 }
@@ -55,9 +62,23 @@
                                     <img src="~/images/@img" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    @if (((info)Session["USER"]).role.rolename.Equals("ADMIN"))
+                                    {
+                                        <a class="dropdown-item" href="/admin">
+                                            <i class="fas fa-users-cog"></i>
+                                            admin
+                                        </a>
+                                    }
+                                    @if (((info)Session["USER"]).role.rolename.Equals("JOURNALIST"))
+                                    {
+                                        <a class="dropdown-item" href="/journalist/article">
+                                            <i class="fas fa-pen-alt"></i>
+                                            Quản lý bài viết
+                                        </a>
+                                    }
+                                    <a class="dropdown-item" href="/profile">
                                         <i class="fas fa-cog"></i>
-                                        Settings
+                                        Profile
                                     </a>
                                     <a class="dropdown-item" href="/logout">
                                         <i class="fas fa-power-off"></i>
@@ -65,13 +86,13 @@
                                     </a>
                                 </div>
                             </div>
-                        }    
+                        }
                         else
                         {
                             <div class="user">
                                 <a class="user-icon" href="/Login"><i class="far fa-user-circle"></i></a>
                             </div>
-                        }
+                            }
                     }
                 </div>
             </div>
@@ -80,15 +101,15 @@
             <div class="navbar-container">
                 <ul class="navbar-list">
                     <li><a href="/"><i class="fas fa-home"></i></a></li>
-                    <li><a href="#">MỚI</a></li>
-                    <li><a href="#">VIỆT NAM</a></li>
-                    <li><a href="#">QUỐC TẾ</a></li>
-                    <li><a href="/view/CT001">BÓNG ĐÁ</a></li>
-                    <li><a href="/view/CT002">CHUYỂN NHƯỢNG</a></li>
-                    <li><a href="/view/CT003">BÓNG RỔ</a></li>
-                    <li><a href="/view/CT006">BÓNG CHUYỀN</a></li>
-                    <li><a href="/view/CT004">ESPORTS</a></li>
-                    <li><a href="#">KHÁC</a></li>
+                    <li><a href="/">MỚI</a></li>
+                    <li><a href="/keyword/Việt Nam">VIỆT NAM</a></li>
+                    <li><a href="/keyword/Quốc Tế">QUỐC TẾ</a></li>
+                    <li><a href="/view/1">BÓNG ĐÁ</a></li>
+                    <li><a href="/view/2">CHUYỂN NHƯỢNG</a></li>
+                    <li><a href="/view/3">BÓNG RỔ</a></li>
+                    <li><a href="/view/6">BÓNG CHUYỀN</a></li>
+                    <li><a href="/view/4">ESPORTS</a></li>
+                    <li><a href="/view/9">KHÁC</a></li>
                 </ul>
             </div>
         </div>
@@ -103,6 +124,7 @@
                 }
             </div>
         </div>
+        <div page="1" total="@total" class="gif"><img src="~/images/load.gif" id="loading" /></div>
         <a href="#up" class="simplescrollup__button simplescrollup__button--hide"><i class="fas fa-chevron-up"></i></a>
         <footer class="footer">
             <div>Copyright &copy; 2021 Team 1. All rights reserved</div>

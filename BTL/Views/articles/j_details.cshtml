@@ -1,0 +1,94 @@
+﻿@model BTL.Models.article
+@{
+    ViewBag.Title = "j_details";
+    Layout = "~/Views/Shared/_JournalistLayout.cshtml";
+}
+
+
+<h2>Chi tiết bài viết</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="dl-horizontal">
+            <div class="row">
+            <dd class="col">
+                Thể loại:
+                @Html.DisplayFor(model => model.category.name)
+            </dd>
+
+            <dd class="col">
+                Tên tác giả:
+                @Html.DisplayFor(model => model.info.name)
+            </dd>
+
+            <dd class="col">
+                Lượt xem:
+                @Html.DisplayFor(model => model.totalView)
+            </dd>
+
+            <dd class="col">
+                Trạng thái:
+                @Html.DisplayFor(model => model.status)
+            </dd>
+
+    </div>
+    <div class="row">
+        <dd class="col">
+            Ngày tạo:
+            @Html.DisplayFor(model => model.createAt)
+        </dd>
+
+        <dd class="col">
+            Ngày cập nhật:
+            @Html.DisplayFor(model => model.updateAt)
+        </dd>
+    </div>
+
+    <div class="row">
+        <dd class="col">
+            Tiêu đề:
+            @Html.DisplayFor(model => model.title)
+        </dd>
+        <dd class="col">
+            Từ khóa:
+            @{
+                Random r = new Random((int)DateTime.Now.Ticks);
+                foreach (var i in Model.keywords)
+                {
+
+                    var color = String.Format("#{0:X6}", r.Next(0x1000000));
+                    <span style="color:@color">@i.name</span>
+                }
+            }
+
+        </dd>
+    </div>
+
+    <dt>
+        Thumbnail:
+    </dt>
+
+    <dd>
+        <img src="~/images/@Model.thumbnail" alt="Alternate Text" style="width:300px;height:200px;object-fit:cover;" />
+    </dd>
+
+
+    <dd class="detail">
+        <div id="toolbar-container"></div>
+        <div id="editor"></div>
+        <script>
+                    $(document).ready(function () {
+                        editors.isReadOnly = true;
+                        var content = b64_to_utf8("@(Model.description)");
+                        editors.setData(content);
+                    })
+        </script>
+    </dd>
+    <a class="func-link edit-link btn btn-dark btn-icon-text" href="/articles/edit/@Model.id">Sửa bài viết</a>
+
+
+
+    </dl>
+</div>
+</div>
+

@@ -1,0 +1,95 @@
+﻿@model BTL.Models.info
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    var img = Model.img;
+    if (img == null || img == "")
+    {
+        if (Model.gender == true)
+        {
+            img = "male.jpeg";
+        }
+        else
+        {
+            img = "female.jpeg";
+        }
+    }
+}
+<style>
+    .img {
+        background:url('/images/@img');
+        background-size:cover;
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+</style>
+<h2>Sửa thông tin</h2>
+
+<div class="card container">
+    <div class="card-body">
+        <div class="container rounded mt-5 mb-5">
+            <form action="/info/edit" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.id" />
+                <div class="row">
+                    <div class="col-md-4 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <label for="img-file" class="rounded-circle mt-5 img"></label>
+                            <input type="file" name="img-file" id="img-file" value="" />
+                            <input type="text" name="email" id="email" class="font-weight-bold" value="@Model.email" />
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="p-3 py-5">
+                            <div class="row mt-2">
+                                <div class="col-md-6"><label class="labels">Tên</label><input type="text" name="name" id="name" class="form-control" value="@Model.name"></div>
+                                <div class="col-md-6"><label class="labels">Họ</label><input type="text" name="lastname" id="lastname" class="form-control" value="@Model.lastname"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label class="labels">Vai trò</label>
+                                    <select id="roleid" name="roleId">
+                                        <option value=1 @if (Model.roleId == 1) { <text> selected</text>}>Quản trị viên</option>
+                                        <option value=2 @if (Model.roleId == 2) { <text> selected</text>}>Nhà báo</option>
+                                        <option value=3 @if (Model.roleId == 3) { <text> selected</text>}>Người Đọc</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="labels">Giới tính</label>
+                                    <select id="gender" name="gender">
+                                        <option value=true @if (Model.gender) { <text> selected</text>}>Nam</option>
+                                        <option value=false @if (!Model.gender) { <text> selected</text>}>Nữ</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12"><label class="labels">Ngày sinh(tháng/ngày/năm)</label><input type="text" name="birthday" id="birthday" class="form-control" value="@Model.birthday.ToString("MM/dd/yyyy")"></div>
+                                <div class="col-md-12"><label class="labels">Địa chỉ</label><input type="text" name="address" id="address" class="form-control" value="@Model.address"></div>
+                                @if (Model.role.rolename.Equals("JOURNALIST"))
+                                {
+                                    <div class="col-md-12"><label class="labels">Số năm kinh nghiệm</label><input type="text" name="workExperience" class="form-control" value="@Model.journalists.First().workExperience" ></div>
+                                    <div class="col-md-12"><label class="labels">Lương</label><input type="text" name="salary" class="form-control" value="@Model.journalists.First().salary" ></div>
+                                }                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button" type="submit">Lưu thông tin</button>
+                            @if (Model.role.rolename.Equals("READER")) { 
+                                <a class="btn btn-secondary profile-button" href="/reader">Trở về</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-secondary profile-button" href="/journalist">Trở về</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

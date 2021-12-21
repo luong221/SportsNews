@@ -27,22 +27,21 @@ namespace BTL.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "id,articleId,userId,description,createAt,updateAt")] comment comment)
+        public ActionResult Create([Bind(Include = "id,articleId,infoId,description,createAt,updateAt")] comment comment)
         {
             if (Session["USER"] != null)
             {
-                ModelState["userId"].Errors.Clear();
                 using(var dbContext = db.Database.BeginTransaction())
                 {
                     try
                     {
                         if (ModelState.IsValid)
                         {
-                            comment.infoId = ((dynamic)Session["USER"]).id;
+                            comment.infoId = ((info)Session["USER"]).id;
                             comment.createAt = DateTime.Now;
                             db.comments.Add(comment);
                             db.SaveChanges();
-                            comment comment1 = db.comments.Where(t => t.id == comment.id).Include(t => t.infoId).FirstOrDefault();
+                            comment comment1 = db.comments.Where(t => t.id == comment.id).Include(t => t.info).FirstOrDefault();
                             Response.StatusCode = 200;
                             var time = DateTime.Now - comment1.createAt;
                             var displayTime = "";
@@ -98,29 +97,54 @@ namespace BTL.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,articleId,userId,description,createAt,updateAt")] comment comment)
+        [Route("comment/modified")]
+        public ActionResult Edit(long id,string content)
         {
-            if (ModelState.IsValid)
+            comment comment = db.comments.Find(id);
+            try
             {
-                db.Entry(comment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(((info)Session["USER"]).id == comment.infoId || ((info)Session["USER"]).role.rolename.Equals("ADMIN"))
+                {
+                    comment.description = content;
+                    db.Entry(comment).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Response.StatusCode = 200;
+                    return Json("OK", JsonRequestBehavior.AllowGet);
+                }
+                Response.StatusCode = 500;
+                return Json("BAD REQUEST", JsonRequestBehavior.AllowGet);
             }
-            ViewBag.articleId = new SelectList(db.articles, "id", "journalistId", comment.articleId);
-            ViewBag.userId = new SelectList(db.infoes, "id", "email", comment.infoId);
-            return View(comment);
+            catch(Exception e)
+            {
+                Response.StatusCode = 500;
+                return Json("BAD REQUEST", JsonRequestBehavior.AllowGet);
+            }         
         }
 
         // POST: comments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
+        [Route("comment/delete")]
         public ActionResult DeleteConfirmed(long id)
         {
-            comment comment = db.comments.Find(id);
-            db.comments.Remove(comment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                comment comment = db.comments.Find(id);
+                if (((info)Session["USER"]).id == comment.infoId || ((info)Session["USER"]).role.rolename.Equals("ADMIN"))
+                {
+                    
+                    db.comments.Remove(comment);
+                    db.SaveChanges();
+                    Response.StatusCode = 200;
+                    return Json("OK", JsonRequestBehavior.AllowGet);
+                }
+                Response.StatusCode = 500;
+                return Json("BAD REQUEST", JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                Response.StatusCode = 500;
+                return Json("BAD REQUEST", JsonRequestBehavior.AllowGet);
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -133,3 +157,4 @@ namespace BTL.Controllers
         }
     }
 }
+      

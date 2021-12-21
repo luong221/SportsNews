@@ -1,0 +1,130 @@
+﻿@model BTL.Models.info
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+    var img = Model.img;
+    if (img == null || img == "")
+    {
+        if (Model.gender == true)
+        {
+            img = "male.jpeg";
+        }
+        else
+        {
+            img = "female.jpeg";
+        }
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="~/Content/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Content/admin/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/admin/css/vertical-layout-light/style.css">
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            background: #f5f7ff;
+        }
+
+        .rounded-circle {
+            border-radius: 100%;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .card.container {
+            margin: 0px auto;
+        }
+
+        .field-icon {
+            float: right;
+            margin-left: -25px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
+        }
+        #img-file{
+            display:none;
+        }
+        .img{
+            display:block;
+            background: url('/images/@img');
+            background-size:cover;
+            width:150px;
+            height:150px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="card container">
+        <div class="card-body">
+            <div class="container rounded mt-5 mb-5">
+                <form action="/profile/edit" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.id" />
+                    <div class="row">
+                        <div class="col-md-4 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                <label for="img-file" class="rounded-circle mt-5 img"></label>
+                                <input type="file" name="img-file" id="img-file" value="" />
+                                <input type="text" name="email" id="email" class="font-weight-bold" value="@Model.email" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="p-3 py-5">
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Tên</label><input type="text" name="name" id="name" class="form-control" value="@Model.name"></div>
+                                    <div class="col-md-6"><label class="labels">Họ</label><input type="text" name="lastname" id="lastname" class="form-control" value="@Model.lastname"></div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">Giới tính</label>
+                                        <select id="gender" name="gender">
+                                            <option value=true @if (Model.gender){<text>selected</text>}>Nam</option>
+                                            <option value=false @if (!Model.gender){<text>selected</text>}>Nữ</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12"><label class="labels">Ngày sinh(tháng/ngày/năm)</label><input type="text" name="birthday" id="birthday" class="form-control" value="@Model.birthday.ToString("MM/dd/yyyy")"></div>
+                                    <div class="col-md-12"><label class="labels">Địa chỉ</label><input type="text" name="address" id="address" class="form-control" value="@Model.address"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mt-5 text-center">
+
+                                <button class="btn btn-primary profile-button" type="submit">Lưu thông tin</button>
+                                <a class="btn btn-secondary profile-button" href="/profile">Trở về</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="~/Content/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#img-file').change(function () {
+            const file = $('#img-file')[0].files[0];
+            if (file) {
+                $(".img").css("background", "url(" + URL.createObjectURL(file) + ")");
+                $(".img").css("background-size", "cover");
+            }
+        })
+    })
+</script>
+</html>
+

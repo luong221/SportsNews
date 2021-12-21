@@ -1,9 +1,7 @@
 ﻿using BTL.Models;
 using BTL.security;
-using System;
-using System.Collections.Generic;
+using PagedList;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BTL.Controllers
@@ -13,10 +11,17 @@ namespace BTL.Controllers
     {
         // GET: Reader
         private NewsData db = new NewsData();
-        public ActionResult Index()
+        public ActionResult Index(int? page,int? pageSize)
         {
-            var info = db.infoes.Where(t => t.role.rolename.Equals("READER") && t.status.Equals("ACTIVE")).OrderBy(t => t.id).Take(10);
-            return View(info.ToList());
+            var info = db.infoes.Where(t => t.role.rolename.Equals("READER") && t.status.Equals("ACTIVE")).OrderBy(t => t.id).ToPagedList(page ?? 1, pageSize ?? 5);
+            return View(info);
+        }
+
+        [HttpGet]
+        public ActionResult details(long id)
+        {
+            var info = db.infoes.Where(t => t.role.rolename.Equals("READER") && t.id == id).FirstOrDefault();
+            return View(info);
         }
     }
 }

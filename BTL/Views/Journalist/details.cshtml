@@ -1,0 +1,62 @@
+﻿@model BTL.Models.info
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+    var img = Model.img;
+    if (img == null || img == "")
+    {
+        if (Model.gender == true)
+        {
+            img = "male.jpeg";
+        }
+        else
+        {
+            img = "female.jpeg";
+        }
+    }
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Thông tin chi tiết</h2>
+
+<div class="card">
+    <div class="card-body">
+        <div class="container rounded mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-4 border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class="rounded-circle mt-5 img" src="~/images/@img">
+                        <span class="font-weight-bold">@Model.email</span>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="p-3 py-5">
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Tên</label><input type="text" class="form-control" value="@Model.name" readonly></div>
+                            <div class="col-md-6"><label class="labels">Họ</label><input type="text" class="form-control" value="@Model.lastname" readonly></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Mật khẩu</label><input type="password" class="form-control" value="@Model.password" readonly id="password"> <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></div>
+                            <div class="col-md-12"><label class="labels">Giới tính</label><input type="text" class="form-control" value="@if (Model.gender) {<text>Nam</text>} else {<text>Nữ</text>} " readonly></div>
+                            <div class="col-md-12"><label class="labels">Ngày sinh</label><input type="text" class="form-control" value="@Model.birthday.ToString("dd/MM/yyyy")" readonly></div>
+                            <div class="col-md-12"><label class="labels">Địa chỉ</label><input type="text" class="form-control" value="@Model.address" readonly></div>
+                            @if (Model.role.rolename.Equals("JOURNALIST"))
+                            {
+                                <div class="col-md-12"><label class="labels">Số năm kinh nghiệm</label><input type="text" class="form-control" value="@Model.journalists.First().workExperience" readonly></div>
+                                <div class="col-md-12"><label class="labels">Lương</label><input type="text" class="form-control" value="@Model.journalists.First().salary" readonly></div>
+                            }
+                            <div class="col-md-12"><label class="labels">Ngày tham gia</label><input type="text" class="form-control" value="@Model.createAt.ToString()" readonly></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mt-5 text-center">
+
+                        <a class="btn btn-primary profile-button" href="/info/edit/@Model.id">Sửa thông tin</a>
+                        <a class="btn btn-secondary profile-button" href="/journalist">Trở về</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

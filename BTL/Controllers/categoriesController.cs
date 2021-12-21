@@ -23,7 +23,7 @@ namespace BTL.Controllers
         }
 
         // GET: categories/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(long id)
         {
             if (id == null)
             {
@@ -52,6 +52,7 @@ namespace BTL.Controllers
         {
             if (ModelState.IsValid)
             {
+                category.createAt = DateTime.Now;
                 db.categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -61,7 +62,7 @@ namespace BTL.Controllers
         }
 
         // GET: categories/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(long id)
         {
             if (id == null)
             {
@@ -84,6 +85,7 @@ namespace BTL.Controllers
         {
             if (ModelState.IsValid)
             {
+                category.updateAt = DateTime.Now;
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,7 +94,7 @@ namespace BTL.Controllers
         }
 
         // GET: categories/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(long id)
         {
             if (id == null)
             {

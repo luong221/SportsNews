@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<BTL.Models.comment>
-
+@using BTL.Models
 @{
     Layout = null;
 }
@@ -8,7 +8,7 @@
     <h3>Ý kiến (@Model.Count())</h3>
     <div class="form-container">
         <form action="" method="post">
-            <textarea class="form-control" type="textarea" name="comment" id="comment" @if (Session["USER"] == null) { <text> placeholder="Vui lòng đăng nhập..." disabled</text> }else {<text>placeholder="Ý kiến của bạn..." </text> }></textarea>
+            <textarea class="form-control textarea" type="textarea" name="comment" id="comment" @if (Session["USER"] == null) { <text> placeholder="Vui lòng đăng nhập..." disabled</text> }else {<text>placeholder="Ý kiến của bạn..." </text> }></textarea>
             <input type="button" name="submit" id="comment-submit" class="btn btn-primary" value="Gửi" disabled="true" />
         </form>
     </div>
@@ -49,23 +49,26 @@
                 <img src="~/images/@img" alt="" />
             </div>
             <div>
-                <p class="full-comment"><strong>@i.info.lastname @i.info.name: </strong>@i.description</p>
+                <p class="full-comment"><strong>@i.info.lastname @i.info.name: </strong><span>@i.description</span></p>
                 <p>@displayTime</p>
             </div>
-            @if (((dynamic)Session["USER"]).id == i.infoId)
-            {
-                <a href="#" id="comment-option" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="comment-option">
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-cog"></i>
-                        Settings
-                    </a>
-                    <a class="dropdown-item" href="/logout">
-                        <i class="fas fa-power-off"></i>
-                        Logout
-                    </a>
-                </div>
-            }
+            <div>
+                @if (Session["USER"] != null)
+                {
+                    if (((info)Session["USER"]).id == i.infoId || ((info)Session["USER"]).role.rolename.Equals("ADMIN"))
+                    {
+                        <a href="#" id="comment-option"  data-toggle="dropdown"><i  class="fas fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="comment-option">
+                            <a class="dropdown-item comment-modified" index="@i.id" href="javascript:void(0)">
+                                Chỉnh sửa
+                            </a>
+                            <a class="dropdown-item comment-delete" index="@i.id" href="javascript:void(0)">
+                                Xóa
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
         </div>
         }
     </div>

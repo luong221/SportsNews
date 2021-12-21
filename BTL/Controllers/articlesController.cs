@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using BTL.Models;
 using BTL.security;
-
+using PagedList;
 namespace BTL.Controllers
 {
-    [Admin_JournalistAuthorize]
     public class articlesController : Controller
     {
         private NewsData db = new NewsData();
@@ -23,18 +18,18 @@ namespace BTL.Controllers
         [Route("censor")]
         public ActionResult listNotCensor()
         {
-            var articles = db.articles.Include(a => a.category).Include(a => a.info).Where(t=>t.status.Equals("ACTIVE"));
+            var articles = db.articles.Include(a => a.category).Include(a => a.info).Where(t=>t.status.Equals("INITIAL"));
             return View(articles);
         }
         [AdminAuthorize]
         [HttpPost]
-        [Route("censor/{id}")]
+        [Route("censor")]
         public ActionResult changeStatus(long id)
         {
             try
             {
                 var article = db.articles.Find(id);
-                article.status = "PUBLISH";
+                article.status = "PUBLISHED";
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
                 Response.StatusCode = 200;
@@ -47,46 +42,64 @@ namespace BTL.Controllers
             }
         }
         // GET: articles
-        public ActionResult Index()
+        [AdminAuthorize]
+        public ActionResult Index(int? page,int? pageSize)
         {
             ViewBag.title = "Bài Viết";
-            var articles = db.articles.Include(a => a.category).Include(a => a.info);
-            return View(articles.ToList());
+            var articles = db.articles.Include(a => a.category).Include(a => a.info).OrderBy(t=>t.id).ToPagedList(page ?? 1,pageSize ?? 5);
+            return View(articles);
         }
 
         // GET: articles/Details/5
+        [Admin_JournalistAuthorize]
         public ActionResult Details(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             article article = db.articles.Find(id);
-            if (article == null)
-            {
-                return HttpNotFound();
+            info info = (info)Session["USER"];
+            if (info.id == article.infoId || info.role.rolename.Equals("ADMIN"))
+            {                
+                if (info.role.rolename.Equals("JOURNALIST"))
+                {
+                    return View("~/Views/articles/j_details.cshtml",article);
+                }
+                return View(article);
             }
-            return View(article);
+            if (info.role.rolename.Equals("JOURNALIST"))
+            {
+                return RedirectToAction("article", "journalist");
+            }
+            return RedirectToAction("Index", "articles");
         }
 
         // GET: articles/Create
+        [Admin_JournalistAuthorize]
         public ActionResult Create()
         {
+            info info = (info)Session["USER"];
             ViewBag.categoryId = new SelectList(db.categories, "id", "name");
+            if (info.role.rolename.Equals("JOURNALIST"))
+            {
+                return View("~/Views/articles/j_create.cshtml");
+            }
+                
             return View();
+            
         }
 
         // POST: articles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Admin_JournalistAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,journalistId,categoryId,title,totalView,thumbnail,description,status,createAt,updateAt")] article article,FormCollection f)
+        public ActionResult Create([Bind(Include = "id,infoID,categoryId,title,totalView,thumbnail,description,status,createAt,updateAt")] article article,FormCollection f)
         {
             using (var dbcontext = db.Database.BeginTransaction())
             {
+                info info = (info)Session["USER"];
                 try
                 {
+                    
                     var __file = Request.Files["img-file"];
                     if (__file != null && __file.ContentLength > 0)
                     {
@@ -111,9 +124,17 @@ namespace BTL.Controllers
                         }
                         dbcontext.Commit();
                         __file.SaveAs(__path);
+                        if (info.role.rolename.Equals("JOURNALIST"))
+                        {
+                            return RedirectToAction("article","journalist");
+                        }
                         return RedirectToAction("Index");
                     }
                     ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
+                    if (info.role.rolename.Equals("JOURNALIST"))
+                    {
+                        return View("~/Views/articles/j_create.cshtml", article);
+                    }
                     return View(article);
                 }
                 catch (Exception e)
@@ -122,6 +143,10 @@ namespace BTL.Controllers
                     ViewBag.message = "File upload failed!!";
                     ViewBag.exception = e.Message;
                     ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
+                    if (info.role.rolename.Equals("JOURNALIST"))
+                    {
+                        return View("~/Views/articles/j_create.cshtml", article);
+                    }
                     return View();
                 }
             }
@@ -129,20 +154,30 @@ namespace BTL.Controllers
         }
 
         // GET: articles/Edit/5
+        [Admin_JournalistAuthorize]
         public ActionResult Edit(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            info info = (info)Session["USER"];
             article article = db.articles.Find(id);
-            if (article == null)
-            {
-                return HttpNotFound();
+            if (info.id == article.infoId || info.role.rolename.Equals("ADMIN"))
+            {               
+                
+                if (info.role.rolename.Equals("JOURNALIST"))
+                {
+                    ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
+                    ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.infoId);
+                    return View("~/Views/articles/j_edit.cshtml", article);
+                }
+                ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
+                ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.infoId);
+                return View(article);
             }
-            ViewBag.categoryId = new SelectList(db.categories, "id", "name", article.categoryId);
-            ViewBag.journalistId = new SelectList(db.journalists, "id", "name", article.infoId);
-            return View(article);
+            if (info.role.rolename.Equals("JOURNALIST"))
+            {
+                return RedirectToAction("article", "journalist");
+            }
+            return RedirectToAction("Index", "articles");
+            
         }
 
         // POST: articles/Edit/5
@@ -150,61 +185,66 @@ namespace BTL.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,journalistId,categoryId,title,totalView,thumbnail,description,status,createAt,updateAt")] article article,FormCollection f)
+        [Admin_JournalistAuthorize]
+        public ActionResult Edit([Bind(Include = "id,infoId,categoryId,title,totalView,thumbnail,description,status,createAt,updateAt")] article article,FormCollection f)
         {
-                try
+            info info = (info)Session["USER"];
+            try
+            {
+                article currArticle = db.articles.AsNoTracking().Where(t => t.id == article.id).First();
+                var __file = Request.Files["img-file"];
+                if (__file != null && __file.ContentLength > 0)
                 {
-                    article currArticle = db.articles.AsNoTracking().Where(t => t.id == article.id).First();
-                    article.keywords = currArticle.keywords;
-                    var __file = Request.Files["img-file"];
-                    if (__file != null && __file.ContentLength > 0)
-                    {
-                        ModelState["thumbnail"].Errors.Clear();
-                        string __filename = System.IO.Path.GetFileName(__file.FileName);
-                        string __path = Server.MapPath("~/images/") + __filename;
-                        currArticle.thumbnail = __filename;
-                        __file.SaveAs(__path);
-                    }
-
-                    var keys = f["keywords"].Split(',').Select(t => long.Parse(t)).ToList();
-                    if (keys.Count != 0)
-                    {
-                        var n = currArticle.keywords.ToList();
-                        string delete = "delete keyword_article where articleId = '" + currArticle.id + "'";
-                        StringBuilder insert = new StringBuilder("Insert into keyword_article values ");
-                        SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
-                        conn.Open();
-                        SqlCommand qdelete = new SqlCommand(delete, conn);                       
-                        qdelete.ExecuteNonQuery();                        
-                        foreach (var i in keys)
-                        {
-                            insert.Append("(" + currArticle.id + "," + db.keywords.Find(i).id + "),");
-                        }
-                        insert.Remove(insert.Length-1, 1);
-                        SqlCommand qinsert = new SqlCommand(insert.ToString(), conn);
-                        qinsert.ExecuteNonQuery();
-                        conn.Close();
-                    }
-                    currArticle.updateAt = DateTime.Now;
-                    currArticle.categoryId = article.categoryId;
-                    currArticle.infoId = article.infoId;
-                    currArticle.title = article.title;
-                    currArticle.description = article.description;
-                    foreach (var modelValue in ModelState.Values)
-                    {
-                        modelValue.Errors.Clear();
-                    }
-                    db.Entry(currArticle).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-
+                    ModelState["thumbnail"].Errors.Clear();
+                    string __filename = System.IO.Path.GetFileName(__file.FileName);
+                    string __path = Server.MapPath("~/images/") + __filename;
+                    currArticle.thumbnail = __filename;
+                    __file.SaveAs(__path);
                 }
-                catch (Exception e)
+
+                var keys = f["keywords"].Split(',').Select(t => long.Parse(t)).ToList();                   
+                currArticle.updateAt = DateTime.Now;
+                currArticle.categoryId = article.categoryId;
+                currArticle.infoId = article.infoId;
+                currArticle.title = article.title;
+                currArticle.description = article.description;
+                foreach (var modelValue in ModelState.Values)
                 {
-                    ViewBag.message = "File upload failed!!";
-                    ViewBag.exception = e.Message;
-                    return RedirectToAction("edit", "articles");
+                    modelValue.Errors.Clear();
                 }
+                db.Entry(currArticle).State = EntityState.Modified;
+                db.SaveChanges();
+                if (keys.Count != 0)
+                {
+                    var n = currArticle.keywords.ToList();
+                    string delete = "delete keyword_article where articleId = '" + currArticle.id + "'";
+                    StringBuilder insert = new StringBuilder("Insert into keyword_article values ");
+                    SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString);
+                    conn.Open();
+                    SqlCommand qdelete = new SqlCommand(delete, conn);
+                    qdelete.ExecuteNonQuery();
+                    foreach (var i in keys)
+                    {
+                        insert.Append("(" + currArticle.id + "," + db.keywords.Find(i).id + "),");
+                    }
+                    insert.Remove(insert.Length - 1, 1);
+                    SqlCommand qinsert = new SqlCommand(insert.ToString(), conn);
+                    qinsert.ExecuteNonQuery();
+                    conn.Close();
+                }
+                if (info.role.rolename.Equals("JOURNALIST"))
+                {
+                    return RedirectToAction("article", "journalist");
+                }
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.message = "File upload failed!!";
+                ViewBag.exception = e.Message;
+                return RedirectToAction("edit", "articles");
+            }
             
             
         }
